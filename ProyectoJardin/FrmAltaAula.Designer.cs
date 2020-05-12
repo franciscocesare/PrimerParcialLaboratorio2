@@ -40,6 +40,7 @@
             this.btnGuardar = new System.Windows.Forms.Button();
             this.lstAlumnosSinSala = new System.Windows.Forms.ListBox();
             this.lstAlumnosEn = new System.Windows.Forms.ListBox();
+            this.btnCancelar = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // lblDocente
@@ -115,13 +116,14 @@
             // 
             // btnGuardar
             // 
+            this.btnGuardar.BackColor = System.Drawing.Color.Tomato;
             this.btnGuardar.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.btnGuardar.Location = new System.Drawing.Point(303, 389);
+            this.btnGuardar.Location = new System.Drawing.Point(303, 163);
             this.btnGuardar.Name = "btnGuardar";
             this.btnGuardar.Size = new System.Drawing.Size(66, 33);
             this.btnGuardar.TabIndex = 4;
             this.btnGuardar.Text = "Guardar";
-            this.btnGuardar.UseVisualStyleBackColor = true;
+            this.btnGuardar.UseVisualStyleBackColor = false;
             this.btnGuardar.Click += new System.EventHandler(this.btnGuardar_Click);
             // 
             // lstAlumnosSinSala
@@ -142,6 +144,16 @@
             this.lstAlumnosEn.Size = new System.Drawing.Size(290, 342);
             this.lstAlumnosEn.TabIndex = 5;
             // 
+            // btnCancelar
+            // 
+            this.btnCancelar.Location = new System.Drawing.Point(300, 392);
+            this.btnCancelar.Name = "btnCancelar";
+            this.btnCancelar.Size = new System.Drawing.Size(75, 23);
+            this.btnCancelar.TabIndex = 6;
+            this.btnCancelar.Text = "Cancelar";
+            this.btnCancelar.UseVisualStyleBackColor = true;
+            this.btnCancelar.Click += new System.EventHandler(this.btnCancelar_Click);
+            // 
             // FrmAltaAula
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -150,6 +162,7 @@
             this.BackgroundImage = global::ProyectoJardin.Properties.Resources.jardines;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
             this.ClientSize = new System.Drawing.Size(673, 450);
+            this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.lstAlumnosEn);
             this.Controls.Add(this.lstAlumnosSinSala);
             this.Controls.Add(this.btnGuardar);
@@ -187,5 +200,6 @@
         private System.Windows.Forms.Button btnGuardar;
         private System.Windows.Forms.ListBox lstAlumnosSinSala;
         private System.Windows.Forms.ListBox lstAlumnosEn;
+        private System.Windows.Forms.Button btnCancelar;
     }
 }

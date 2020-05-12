@@ -83,3 +83,5 @@ C:\Users\Usuario\Desktop\1_PARCIAL_CesareHerenFrom\PrimerParcialLaboratorio2\Pro
 C:\Users\Usuario\Desktop\1_PARCIAL_CesareHerenFrom\PrimerParcialLaboratorio2\ProyectoJardin\obj\Debug\ProyectoJardin.csproj.CopyComplete
 C:\Users\Usuario\Desktop\1_PARCIAL_CesareHerenFrom\PrimerParcialLaboratorio2\ProyectoJardin\obj\Debug\ProyectoJardin.exe
 C:\Users\Usuario\Desktop\1_PARCIAL_CesareHerenFrom\PrimerParcialLaboratorio2\ProyectoJardin\obj\Debug\ProyectoJardin.pdb
+C:\Users\Usuario\Desktop\1_PARCIAL_CesareHerenFrom\PrimerParcialLaboratorio2\ProyectoJardin\bin\Debug\WPFCustomMessageBox.dll
+C:\Users\Usuario\Desktop\1_PARCIAL_CesareHerenFrom\PrimerParcialLaboratorio2\ProyectoJardin\bin\Debug\WPFCustomMessageBox.xml

@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
+using WPFCustomMessageBox;
 
 namespace ProyectoJardin
 {
@@ -16,9 +17,8 @@ namespace ProyectoJardin
     {
         private List<Alumno> alumnos;
         private List<Docente> docentes;
-        private List<Administrativo> administrativos;
         private List<Responsable> responsables;
-        private List<Personal> personal;
+        private List<Administrativo> personal;
         private List<Aula> aulas;
         private Aula aula;
 
@@ -31,11 +31,10 @@ namespace ProyectoJardin
 
             alumnos = new List<Alumno>();
             docentes = new List<Docente>();
-            administrativos = new List<Administrativo>();
             responsables = new List<Responsable>();
-            personal = new List<Personal>();
+            personal = new List<Administrativo>();
             aulas = new List<Aula>();
-            //aula = new Aula();
+        
 
 
         }
@@ -80,10 +79,10 @@ namespace ProyectoJardin
             alumnos.Add(new Alumno("juan", "lalerme", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("jose", "balome", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("marcela", "skaska", dni.Next(40000000, 50000000), true, 1500));
-            alumnos.Add(new Alumno("pepe", "lepu", dni.Next(40000000, 50000000), false, 1800));
+            alumnos.Add(new Alumno("pipo", "lepu", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("matias", "davila", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("jimena", "teas", dni.Next(40000000, 50000000), true, 1500));
-            alumnos.Add(new Alumno("pepe", "lepu", dni.Next(40000000, 50000000), false, 1800));
+            alumnos.Add(new Alumno("pancho", "lepu", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("jose", "benitez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("jimena", "teas", dni.Next(40000000, 50000000), true, 1500));
             alumnos.Add(new Alumno("pepe", "nuna", dni.Next(40000000, 50000000), false, 1800));
@@ -92,34 +91,34 @@ namespace ProyectoJardin
             alumnos.Add(new Alumno("sacha", "lepore", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("jose", "fernandez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("jimena", "teas", dni.Next(40000000, 50000000), true, 1500));
-            alumnos.Add(new Alumno("pepe", "lepu", dni.Next(40000000, 50000000), false, 1800));
+            alumnos.Add(new Alumno("pepe", "damino", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("jose", "benitez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("jimena", "teas", dni.Next(40000000, 50000000), true, 1500));
-            alumnos.Add(new Alumno("pepe", "fernandes", dni.Next(40000000, 50000000), false, 1800));
+            alumnos.Add(new Alumno("lucas", "fernandes", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("keke", "benitez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("salome", "teas", dni.Next(40000000, 50000000), true, 1500));
             alumnos.Add(new Alumno("marcelo", "ramirez", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("jose", "benitez", dni.Next(40000000, 50000000), false, 1500));
-            alumnos.Add(new Alumno("thalia", "teas", dni.Next(40000000, 50000000), true, 1500));
-            alumnos.Add(new Alumno("pepe", "lepu", dni.Next(40000000, 50000000), false, 1800));
+            alumnos.Add(new Alumno("thalia", "bermudez", dni.Next(40000000, 50000000), true, 1500));
+            alumnos.Add(new Alumno("ezequiel", "lepu", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("jose", "parci", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("jimena", "shaki", dni.Next(40000000, 50000000), true, 1500));
             alumnos.Add(new Alumno("rodrigo", "diaz", dni.Next(40000000, 50000000), false, 1800));
-            alumnos.Add(new Alumno("jose", "benitez", dni.Next(40000000, 50000000), false, 1500));
+            alumnos.Add(new Alumno("brian", "benitez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("Ximena", "gomez", dni.Next(40000000, 50000000), true, 1500));
-            alumnos.Add(new Alumno("matias", "lepu", dni.Next(40000000, 50000000), false, 1800));
+            alumnos.Add(new Alumno("matias", "legrand", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("jose", "benitez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("jimena", "teas", dni.Next(40000000, 50000000), true, 1500));
             alumnos.Add(new Alumno("german", "lepu", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("jose", "benitez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("jimena", "teas", dni.Next(40000000, 50000000), true, 1500));
-            alumnos.Add(new Alumno("pepe", "lepu", dni.Next(40000000, 50000000), false, 1800));
+            alumnos.Add(new Alumno("pancho", "lepere", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("marcelo", "beebebe", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("ellaNunca", "olvida", dni.Next(40000000, 50000000), true, 1500));
-            alumnos.Add(new Alumno("pepe", "lepu", dni.Next(40000000, 50000000), false, 1800));
+            alumnos.Add(new Alumno("tomas", "lepu", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("jose", "benitez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("jimena", "teas", dni.Next(40000000, 50000000), true, 1500));
-            alumnos.Add(new Alumno("pepe", "lepu", dni.Next(40000000, 50000000), false, 1800));
+            alumnos.Add(new Alumno("juan", "lepu", dni.Next(40000000, 50000000), false, 1800));
 
 
             for (int i = 0; i < alumnos.Count; i++) //asigno legajo a todos los harcodeados
@@ -187,8 +186,19 @@ namespace ProyectoJardin
 
             if (!(alumnos is null) || responsables is null || docentes is null || aulas is null)
             {
-                MessageBox.Show("Hardcodeos de prueba cargados!");
-                btnLoadPruebas.Enabled = false;
+                if (MessageBox.Show("¿Vamos a hacer unas pruebas ahora?", "Hardcodeos de prueba cargados", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+                {
+
+
+                    btnLoadPruebas.Enabled = false;
+
+                }
+                else
+                {
+
+                    this.Close();
+
+                }
             }
         }
 
@@ -197,13 +207,35 @@ namespace ProyectoJardin
         private void altaDeDocenteToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FrmAltaPersonal frmAltaDocente = new FrmAltaPersonal();
+            frmAltaDocente.Docentes = docentes;
+            frmAltaDocente.SetParaDocentes();
             frmAltaDocente.ShowDialog();
 
-
+            if (frmAltaDocente.DialogResult == DialogResult.OK)
+            {
+                docentes = frmAltaDocente.Docentes;
+            }
+            else if (frmAltaDocente.DialogResult == DialogResult.Cancel)
+            {
+                MessageBox.Show("se canceló con exito");
+            }
         }
 
         private void altaNoDocenteToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            FrmAltaPersonal frmAltaNoDocente = new FrmAltaPersonal();
+            frmAltaNoDocente.ListaPersonal = personal;
+            frmAltaNoDocente.SetParaPersonal();
+
+            frmAltaNoDocente.ShowDialog();
+            if(frmAltaNoDocente.DialogResult==DialogResult.OK)
+            {
+                personal = frmAltaNoDocente.ListaPersonal;
+            }
+            else if (frmAltaNoDocente.DialogResult == DialogResult.Cancel)
+            {
+                MessageBox.Show("se canceló con exito");
+            }
 
         }
 
@@ -248,7 +280,16 @@ namespace ProyectoJardin
 
         private void salirToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            if (MessageBox.Show("¿Salir del Sistema?", "Chau Pichoncitos", MessageBoxButtons.YesNo, MessageBoxIcon.Question) == DialogResult.Yes)
+            {
+                this.Close();
+            }
+            else
+            {
+                MessageBox.Show("no te vayas aun, vamos a dar algun alta");
+
+            }
+
         }
 
 
@@ -269,10 +310,8 @@ namespace ProyectoJardin
         }
 
 
-        private void lstBoxPrincipal_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            lstBoxPrincipal.Visible = false;
-        }
+
+
 
 
         private void verAulasToolStripMenuItem_Click(object sender, EventArgs e)
@@ -313,6 +352,11 @@ namespace ProyectoJardin
             MessageBox.Show("Despues de revisar,\nDoble click para cerrar la lista");
             lstBoxPrincipal.Visible = true;   // MessageBox.Show("La recaudacion total fue de $" + acumulador.ToString());
             lstBoxPrincipal.Items.Add("La recaudacion total fue de $" + recaudacion.ToString());
+        }
+
+        private void lstBoxPrincipal_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            lstBoxPrincipal.Visible = false;
         }
     }
 }

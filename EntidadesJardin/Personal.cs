@@ -4,23 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
- //protected string _legajo;
- //protected EPuestoJerarquico _puesto;
- //protected int _salario;
-
- //public Empleado(Persona persona, string legajo, EPuestoJerarquico puesto, int salario)
- //	: this(persona.Nombre, persona.Apellido, legajo, puesto, salario)
- //{
- //}
-
- //public Empleado(string nombre, string apellido, string legajo, EPuestoJerarquico puesto, int salario)
- //	: base(nombre, apellido)
- //{
- //	this._legajo = legajo;
- //	this._puesto = puesto;
- //	this._salario = salario;
- //}
-
+ 
 namespace EntidadesJardin
 {
     public abstract class Personal:Persona

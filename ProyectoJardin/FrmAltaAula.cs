@@ -163,15 +163,12 @@ namespace ProyectoJardin
 
             if (!(aula is null))
             {
-                // int indice = lstAlumnosSinSala.SelectedIndex;  //ACA TENGO PROBLEMASS CUANDO HAGO MAS DE 1
+                 int indice = lstAlumnosSinSala.SelectedIndex;  //ACA TENGO PROBLEMASS CUANDO HAGO MAS DE 1
 
-                if (this.aula + alumnos[lstAlumnosSinSala.SelectedIndex])
+                if (this.aula + alumnos[indice])
                 {
 
-
-                    lstAlumnosEn.Items.Add(alumnos[lstAlumnosSinSala.SelectedIndex]);       //pasarlo de una lista a la otra, borrarlo de la vieja                                           
-
-
+                    lstAlumnosEn.Items.Add(alumnos[indice]);       //pasarlo de una lista a la otra, borrarlo de la vieja                                           
 
                     return true;
                 }
@@ -230,6 +227,17 @@ namespace ProyectoJardin
                     break;
             }
 
+        }
+
+        private void btnCancelar_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            if (MessageBox.Show("¿Deseas Salir?", "Abandonando Carga", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
+
+            {
+                this.Close();
+            }
+            
         }
     }
 }
