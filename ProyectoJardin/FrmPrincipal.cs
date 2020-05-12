@@ -350,12 +350,13 @@ namespace ProyectoJardin
             }
 
             MessageBox.Show("Despues de revisar,\nDoble click para cerrar la lista");
-            lstBoxPrincipal.Visible = true;   // MessageBox.Show("La recaudacion total fue de $" + acumulador.ToString());
+            lstBoxPrincipal.Visible = true;  
             lstBoxPrincipal.Items.Add("La recaudacion total fue de $" + recaudacion.ToString());
         }
 
         private void lstBoxPrincipal_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+            MessageBox.Show("Cerrado la lista");
             lstBoxPrincipal.Visible = false;
         }
     }
