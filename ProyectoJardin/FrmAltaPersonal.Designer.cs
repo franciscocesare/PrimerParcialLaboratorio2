@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAltaPersonal));
             this.txtbHoraEntrada = new System.Windows.Forms.TextBox();
             this.txtbHoraSalida = new System.Windows.Forms.TextBox();
             this.txtbPrecioHora = new System.Windows.Forms.TextBox();
@@ -89,9 +90,9 @@
             this.lblHoraEntrada.Location = new System.Drawing.Point(16, 226);
             this.lblHoraEntrada.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblHoraEntrada.Name = "lblHoraEntrada";
-            this.lblHoraEntrada.Size = new System.Drawing.Size(68, 13);
+            this.lblHoraEntrada.Size = new System.Drawing.Size(57, 13);
             this.lblHoraEntrada.TabIndex = 11;
-            this.lblHoraEntrada.Text = "Hora Ingreso";
+            this.lblHoraEntrada.Text = "Ingreso 07";
             // 
             // lblHoraEgreso
             // 
@@ -99,9 +100,9 @@
             this.lblHoraEgreso.Location = new System.Drawing.Point(114, 227);
             this.lblHoraEgreso.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             this.lblHoraEgreso.Name = "lblHoraEgreso";
-            this.lblHoraEgreso.Size = new System.Drawing.Size(62, 13);
+            this.lblHoraEgreso.Size = new System.Drawing.Size(51, 13);
             this.lblHoraEgreso.TabIndex = 11;
-            this.lblHoraEgreso.Text = "Hora Salida";
+            this.lblHoraEgreso.Text = "Salida 13";
             // 
             // lblNombre
             // 
@@ -224,8 +225,8 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.BackgroundImage = global::ProyectoJardin.Properties.Resources.jardines;
+            this.BackColor = System.Drawing.Color.Tomato;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(297, 384);
             this.Controls.Add(this.cmbCargos);
             this.Controls.Add(this.btnCancelar);
@@ -247,8 +248,10 @@
             this.Controls.Add(this.txtbHoraSalida);
             this.Controls.Add(this.txtbHoraEntrada);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmAltaPersonal";
+            this.Opacity = 0.9D;
             this.Text = "FrmAltaPersonal";
             this.Load += new System.EventHandler(this.FrmAltaPersonal_Load_1);
             this.ResumeLayout(false);

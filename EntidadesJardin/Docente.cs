@@ -23,9 +23,11 @@ namespace EntidadesJardin
 		public int HorasMensuales
 		{
 			get 
-			{ 
+			{
 
-				return this.HorasMensuales; 
+				double horasDiarias;
+				horasDiarias = HoraSalida.Subtract(HoraEntrada).TotalHours;
+				return (int)horasDiarias * 20;
 			}
 		}
 
@@ -40,11 +42,11 @@ namespace EntidadesJardin
 
 		public override double CalcularSalario()
 		{
-			HoraEntrada = DateTime.Now.AddHours(0600);
-			HoraSalida = new DateTime();
+			//HoraEntrada = DateTime.Now.AddHours(0600);
+			//HoraSalida = new DateTime();
 
 
-			return this.valorHora * (8 * 20);
+			return this.valorHora *HorasMensuales;
 		}
 
 		/// <summary>

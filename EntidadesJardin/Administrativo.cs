@@ -28,13 +28,13 @@ namespace EntidadesJardin
             set { this.cargo = value; }
         }
 
-
-        public Administrativo(string apellido, string nombre, int dni, bool femenino, DateTime horaEntrada, DateTime horaSalida, ECargo cargo)
-            : base(nombre: nombre, apellido: apellido, dni: dni, femenino: femenino, horaEntrada: horaEntrada, horaSalida: horaSalida)
+        public Administrativo(string nombre, string apellido, int dni, bool femenino, DateTime horaEntrada, DateTime horaSalida, ECargo cargo) : base(nombre, apellido, dni, femenino, horaEntrada, horaSalida)
         {
-
             this.cargo = cargo;
+            
         }
+
+        
 
         // Redefine CalcularSalario multiplicando el salario base por el porcentaje de su cargo dividido 100 
         public override double CalcularSalario()

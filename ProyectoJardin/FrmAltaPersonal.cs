@@ -62,7 +62,7 @@ namespace ProyectoJardin
                 && Persona.ValidarCargaStringForms(txtApellido.Text)
                 && Int32.TryParse(txtDni.Text, out dni)
                 && Int32.TryParse(txtbHoraEntrada.Text, out horarioEntrada)
-                && Int32.TryParse(txtbHoraEntrada.Text, out horarioSalida))
+                && Int32.TryParse(txtbHoraSalida.Text, out horarioSalida))
             {
                 return true;
 
@@ -79,13 +79,14 @@ namespace ProyectoJardin
         {
             ECargo cargo;
 
-            int precioxHora;
+            double precioxHora;
 
             if (ValidarCargasHechas() && btnAceptar.Text == "Cargar Docente"
-                                       && Int32.TryParse(txtbPrecioHora.Text, out precioxHora))
+                                       && double.TryParse(txtbPrecioHora.Text, out precioxHora))
             {
                 DateTime entrada = new DateTime(01, 01, 01, horarioEntrada, 00, 00);
                 DateTime salida = new DateTime(01, 01, 01, horarioSalida, 00, 00);
+
                 docente = new Docente(nombre: txtNombre.Text, apellido: txtApellido.Text, dni: dni, femenino: rdbFemenino.Checked, entrada, salida, precioxHora);
                 Docentes.Add(docente);  //sumo a la lista el docente, despues mando la lista completa por dialog
                                         //solucionar falla en el alta docente
@@ -95,7 +96,7 @@ namespace ProyectoJardin
             }                                          
 
             else if(ValidarCargasHechas() && btnAceptar.Text== "Cargar Personal" 
-                 && Enum.TryParse<ECargo>(cmbCargos.SelectedIndex.ToString(), out cargo))
+                 && Enum.TryParse<ECargo>(cmbCargos.SelectedItem.ToString(), out cargo))
             {
                 DateTime entrada = new DateTime(01, 01, 01, horarioEntrada, 00, 00);
                 DateTime salida = new DateTime(01, 01, 01, horarioSalida, 00, 00);
@@ -136,9 +137,12 @@ namespace ProyectoJardin
             cmbCargos.Enabled = true;
             txtbHoraEntrada.Visible = true;
             txtbHoraSalida.Visible = true;
-            txtbPrecioHora.Visible = true;
+            txtbPrecioHora.Visible = false;
             cmbCargos.Visible = false;
             cmbCargos.Visible = true;
+            label1.Visible = false;
+           
+            
             btnAceptar.Text = "Cargar Personal";
         }
 
