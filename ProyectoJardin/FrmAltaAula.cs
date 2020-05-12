@@ -1,0 +1,211 @@
+﻿using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using EntidadesJardin;
+
+namespace ProyectoJardin
+{
+    public partial class FrmAltaAula : Form
+    {
+        private List<Alumno> alumnos;
+        private List<Docente> docentes;
+        private List<Aula> aulas;
+        private Aula aula;
+
+
+
+        public Aula Aula
+        {
+            get { return aula; }
+            set { aula = value; }
+        }
+
+        public List<Docente> ListaDocentes
+        {
+            get { return this.docentes; }
+            set { this.docentes = value; }
+        }
+
+        public List<Alumno> ListaAlumnos
+        {
+            get { return this.alumnos; }
+            set { this.alumnos = value; }
+        }
+
+        public List<Aula> ListaAulas
+        {
+            get { return this.aulas; }
+            set { this.aulas = value; }
+        }
+
+
+        public FrmAltaAula()
+        {
+            InitializeComponent();
+           // this.alumnos = alumnos;  //los traigo del otro FRMprincipal, como argumentos
+           // this.docentes = docentes;
+           // this.aulas = aulas;
+           //
+        }
+
+
+
+        private void FrmAltaAula_Load(object sender, EventArgs e)
+        {
+            cmbColor.DataSource = Enum.GetValues(typeof(Ecolores));
+            cmbTurno.DataSource = Enum.GetValues(typeof(ETurno));
+            cmbDocente.DataSource = docentes;
+
+
+            for (int i = 0; i < alumnos.Count; i++)   ///VER CON UN FOREACH
+            {
+                lstAlumnosSinSala.Items.Add(alumnos[i].ToString());
+            }
+
+
+            if (lstAlumnosEn.Items.Count == 0)
+            {
+                btnGuardar.Enabled = false;
+            }
+
+
+        }
+
+        private bool ValidarDatosSala()
+        {
+
+
+            if (cmbColor.SelectedIndex != -1
+                && cmbTurno.SelectedIndex != -1
+                && cmbDocente.SelectedIndex != -1)
+            {
+                btnGuardar.Enabled = true;
+                return true;
+            }
+
+            else
+            {
+                return false;
+            }
+
+        }
+
+        private void btnGuardar_Click(object sender, EventArgs e)
+        {
+            if (ValidarDatosSala())
+
+            {   // aca no va este, instancio otra aula mas sino
+               // aula = new Aula((Ecolores)cmbColor.SelectedItem, (Docente)cmbDocente.SelectedItem, (ETurno)cmbTurno.SelectedItem);
+                //aula.Alumnos = this.lstAlumnosEn.Items.ToString();
+
+                this.aulas.Add(aula);
+            }
+
+            this.DialogResult = DialogResult.OK;
+        }
+
+        private  bool AgregarAlumnosAlAula()
+        {
+            if (aula is null)
+            {
+
+                aula = new Aula((Ecolores)cmbColor.SelectedItem, (Docente)cmbDocente.SelectedItem, (ETurno)cmbTurno.SelectedItem);
+
+            }
+
+            if (!(aula is null))
+            {
+               // int indice = lstAlumnosSinSala.SelectedIndex;  //ACA TENGO PROBLEMASS CUANDO HAGO MAS DE 1
+
+                if (this.aula + alumnos[lstAlumnosSinSala.SelectedIndex])                                
+                {
+                                                           //indice++;  mover el indice de auno parriba?
+
+                    lstAlumnosEn.Items.Add(alumnos[lstAlumnosSinSala.SelectedIndex]);      //pasarlo de una lista a la otra, borrarlo de la vieja                                           
+                                                                   
+                    
+                    
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+               
+            }
+            return false;
+        }
+
+
+
+        private void lstAlumnosSinSala_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+
+            if (AgregarAlumnosAlAula())
+            {
+               
+                lstAlumnosSinSala.Items.RemoveAt(lstAlumnosSinSala.SelectedIndex);
+                this.ListaAlumnos = alumnos;
+            }
+            //if (aula is null)
+            //{
+
+            //    aula = new Aula((Ecolores)cmbColor.SelectedItem, (Docente)cmbDocente.SelectedItem, (ETurno)cmbTurno.SelectedItem);
+
+            //}
+
+            //if (!(aula is null))
+            //{
+            //    int indice = lstAlumnosSinSala.SelectedIndex;  //ACA TENGO PROBLEMASS CUANDO HAGO MAS DE 1
+
+            //    if (this.aula + alumnos[indice])  //se me desfasa el indice, y si le paso el LSTALUMNOS no me dejaaa
+            //    {
+            //                                                          //aula.Alumnos.Add(alumnos[lstAlumnosSinSala.SelectedIndex]); 
+            //        lstAlumnosEn.Items.Add(alumnos[lstAlumnosSinSala.SelectedIndex]);          //pasarlo de una lista a la otra, borrarlo de la vieja                                           
+            //        lstAlumnosSinSala.Items.RemovelAt(indice); //hacer en las listas logicas(aulas y alumnos), no la visuales, sacarlo a un metodo
+            //    }
+
+
+            //}
+
+        }
+
+        private void cmbColor_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int indice = cmbColor.SelectedIndex;
+
+            switch (cmbColor.SelectedIndex)
+            {
+                case 0:
+
+                    BackColor = Color.Orange;
+                    break;
+
+                case 1:
+
+                    BackColor = Color.Red;
+                    break;
+
+                case 2:
+
+                    BackColor = Color.Yellow;
+                    break;
+
+                case 3:
+                    BackColor = Color.Green; ;
+                    break;
+
+                default:
+                    BackColor = Color.DarkTurquoise;
+                    break;
+            }
+
+        }
+    }
+}
