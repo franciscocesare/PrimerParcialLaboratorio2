@@ -65,7 +65,7 @@ namespace EntidadesJardin
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"El aula {this.colorSala}");
+            sb.AppendLine($"El aula {this.ColorSala}");
             sb.AppendLine($" {this.Docente}");
             sb.AppendLine($" {this.Alumnos}");
 

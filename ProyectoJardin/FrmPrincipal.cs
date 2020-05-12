@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Media;
 
 namespace ProyectoJardin
 {
@@ -18,10 +19,10 @@ namespace ProyectoJardin
         private List<Administrativo> administrativos;
         private List<Responsable> responsables;
         private List<Personal> personal;
-        private List <Aula> aulas;
+        private List<Aula> aulas;
         private Aula aula;
 
-        public int legajo=100;
+        public int legajo = 100;
 
         public FrmPrincipal()
         {
@@ -35,11 +36,11 @@ namespace ProyectoJardin
             personal = new List<Personal>();
             aulas = new List<Aula>();
             //aula = new Aula();
-            
+
 
         }
 
-      
+
 
         public Aula Aula
         {
@@ -53,14 +54,16 @@ namespace ProyectoJardin
             this.IsMdiContainer = true; //este va a ser contenedor de Login
             Form frmLogin = new Form();
             frmLogin.MdiParent = this; //Princ va a ser el padre
-            lstBoxPrincipal.Visible = false;       
-                              //  frmLogin.Show();
+            lstBoxPrincipal.Visible = false;
+            //  frmLogin.Show();
         }
 
         #region hardcodeos de datos!
 
         private void btnLoadPruebas_Click(object sender, EventArgs e)
         {
+            SoundPlayer sonido = new SoundPlayer(@"C:\Windows\Media\notify.wav"); sonido.Play();
+
             Random dni = new Random();
 
             alumnos.Add(new Alumno("emilio", "baez", dni.Next(40000000, 50000000), false, 1500));
@@ -126,24 +129,28 @@ namespace ProyectoJardin
 
             }
 
+
+            //tendria que hardcodear los 50 responsables la yuta madre?
+            responsables.Add(new Responsable("Lautaro", "Acosta", 35994837, false, EParentezco.Tio, "1136654545"));
+            responsables.Add(new Responsable("Gonzalo", "Bellozo", 31443233, false, EParentezco.Padre, "1132325654"));
+
             //terminar los datetime para calcular los salarios
             DateTime miDia = Convert.ToDateTime("07:30 AM");   //ver de armar un date.now, 
             miDia = miDia.AddHours(5);   //le mandas las horas que queres sumar para el horario de salida, podes hacer.addminutes
 
+            int horaEntrada = 7;
+            int horaSalida = 13;
+            DateTime entrada = new DateTime(01, 01, 01, horaEntrada, 00, 00);
+            DateTime salida = new DateTime(01, 01, 01, horaSalida, 00, 00);
 
 
-            //tendria que hardcodear los 50 responsables la yuta madre
-            responsables.Add(new Responsable("Lautaro", "Acosta", 35994837, false, EParentezco.Tio, "1136654545"));
-            responsables.Add(new Responsable("Gonzalo", "Bellozo", 31443233, false, EParentezco.Padre, "1132325654"));
+            docentes.Add(new Docente("Maria", "Martinez", 29192329, true, entrada, salida, 400));
+            docentes.Add(new Docente("Raul", "Diaz", 31195429, true, entrada, salida, 400));
+            docentes.Add(new Docente("Jimena", "Perez", 32191269, true, entrada, salida, 400));
+            docentes.Add(new Docente("Stella", "Marne", 25191666, true, entrada, salida, 400));
+            docentes.Add(new Docente("Stella", "Lurruti", 25191539, true, entrada, salida, 400));
 
-
-            docentes.Add(new Docente("Maria", "Martinez", 29192329, true, Convert.ToDateTime("01/03/2019 07:30 AM"), Convert.ToDateTime("01/03/2019 12:30 PM"), 400));
-            docentes.Add(new Docente("Raul", "Diaz", 31195429, true, Convert.ToDateTime("01/03/2019 07:30 AM"), Convert.ToDateTime("01/03/2019 12:30 PM"), 400));
-            docentes.Add(new Docente("Jimena", "Perez", 32191269, true, Convert.ToDateTime("01/03/2019 07:30 AM"), Convert.ToDateTime("01/03/2019 12:30 PM"), 400));
-            docentes.Add(new Docente("Stella", "Marne", 25191666, true, Convert.ToDateTime("01/03/2019 07:30 AM"), Convert.ToDateTime("01/03/2019 12:30 PM"), 400));
-            docentes.Add(new Docente("Stella", "Lurruti", 25191539, true, Convert.ToDateTime("01/03/2019 07:30 AM"), Convert.ToDateTime("01/03/2019 12:30 PM"), 400));
-
-           Aula aula1 = new Aula(Ecolores.Verde, docentes[3], ETurno.Tarde);  //creo el aula, sumo alumnos y los elimino de la otra lista
+            Aula aula1 = new Aula(Ecolores.Verde, docentes[3], ETurno.Tarde);  //creo el aula, sumo alumnos y los elimino de la otra lista
             aula1.Alumnos.Add(alumnos[0]);
             aula1.Alumnos.Add(alumnos[1]);
             aula1.Alumnos.Add(alumnos[2]);
@@ -191,7 +198,7 @@ namespace ProyectoJardin
         {
             FrmAltaPersonal frmAltaDocente = new FrmAltaPersonal();
             frmAltaDocente.ShowDialog();
-            
+
 
         }
 
@@ -204,11 +211,11 @@ namespace ProyectoJardin
         {
             FrmAltaAlumno frmAlumno = new FrmAltaAlumno();
             frmAlumno.ShowDialog();
-         
-            if (frmAlumno.DialogResult == DialogResult.OK) 
+
+            if (frmAlumno.DialogResult == DialogResult.OK)
             {
                 frmAlumno.Alumno.Legajo = legajo++;
-                this.alumnos.Add(frmAlumno.Alumno); 
+                this.alumnos.Add(frmAlumno.Alumno);
             }
             else if (frmAlumno.DialogResult == DialogResult.Cancel)
             {
@@ -218,14 +225,14 @@ namespace ProyectoJardin
 
         private void altaAulaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+
             FrmAltaAula frmAula = new FrmAltaAula();  //accedo con las propiedades hechas en el otro form!
             frmAula.ListaDocentes = docentes;
             frmAula.ListaAlumnos = alumnos;
             frmAula.ListaAulas = aulas;
-            
+
             frmAula.ShowDialog();
-             if (frmAula.DialogResult== DialogResult.OK)
+            if (frmAula.DialogResult == DialogResult.OK)
             {
                 docentes = frmAula.ListaDocentes; //this.aulas.Add(frmAula.Aula);
                 alumnos = frmAula.ListaAlumnos;
@@ -244,8 +251,8 @@ namespace ProyectoJardin
             this.Close();
         }
 
-       
-       
+
+
 
         private void informacionPadresToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -255,9 +262,9 @@ namespace ProyectoJardin
             for (int i = 0; i < responsables.Count; i++)
             {
                 lstBoxPrincipal.Text += responsables[i].ToString();
-                                                                 
+
             }
-            
+
 
         }
 
@@ -270,13 +277,21 @@ namespace ProyectoJardin
 
         private void verAulasToolStripMenuItem_Click(object sender, EventArgs e)
         {
-             lstBoxPrincipal.Visible = true;
+            lstBoxPrincipal.Visible = true;
 
             lstBoxPrincipal.Items.Clear();
 
             for (int i = 0; i < aulas.Count; i++)
             {
-                lstBoxPrincipal.Items.Add(aulas[i].ToString());
+                lstBoxPrincipal.Items.Add($"Aula: {aulas[i].ColorSala}\n Docente: {aulas[i].Docente.Apellido}, {aulas[i].Docente.Nombre}");
+
+                foreach (Alumno item in aulas[i].Alumnos)
+                {
+
+                    lstBoxPrincipal.Items.Add($"{item.Apellido},{item.Nombre}");
+
+                }
+
             }
         }
 

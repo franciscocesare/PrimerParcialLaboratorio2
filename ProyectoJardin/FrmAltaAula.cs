@@ -48,10 +48,10 @@ namespace ProyectoJardin
         public FrmAltaAula()
         {
             InitializeComponent();
-           // this.alumnos = alumnos;  //los traigo del otro FRMprincipal, como argumentos
-           // this.docentes = docentes;
-           // this.aulas = aulas;
-           //
+            // this.alumnos = alumnos;  //los traigo del otro FRMprincipal, como argumentos
+            // this.docentes = docentes;
+            // this.aulas = aulas;
+            //
         }
 
 
@@ -99,45 +99,87 @@ namespace ProyectoJardin
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (ValidarDatosSala())
+            {
+                if (!aulas.Contains(aula)) //sino esta, la creas
+                {
 
-            {   // aca no va este, instancio otra aula mas sino
-               // aula = new Aula((Ecolores)cmbColor.SelectedItem, (Docente)cmbDocente.SelectedItem, (ETurno)cmbTurno.SelectedItem);
-                //aula.Alumnos = this.lstAlumnosEn.Items.ToString();
+                    this.aulas.Add(aula);
 
-                this.aulas.Add(aula);
+                }
+
             }
+
+            btnGuardar.Enabled = true;
+            cmbColor.Enabled = true;
+            cmbDocente.Enabled = true;
+            cmbTurno.Enabled = true;
+            existe = false;
 
             this.DialogResult = DialogResult.OK;
         }
 
-        private  bool AgregarAlumnosAlAula()
+        bool existe = false;
+
+        private bool AgregarAlumnosAlAula()
         {
+            if (!existe)
+            {
+
+                foreach (Aula item in aulas)  //recorro el array a ver si ya existe turno color
+                {
+                    if (item.ColorSala == (Ecolores)cmbColor.SelectedItem
+                        && item.Docente == (Docente)cmbDocente.SelectedItem
+                        && item.Turno == (ETurno)cmbTurno.SelectedItem)
+
+                    {
+                        aula = item;
+
+                        foreach (Alumno alumno in item.Alumnos)
+                        {
+
+                            lstAlumnosEn.Items.Add($"{alumno.Apellido},{alumno.Nombre}");
+
+                        }
+                        btnGuardar.Enabled = true;
+                        cmbColor.Enabled = false;
+                        cmbDocente.Enabled = false;
+                        cmbTurno.Enabled = false;
+                        existe = true;
+                        return false;
+                    }
+
+
+                }
+            }
             if (aula is null)
             {
 
                 aula = new Aula((Ecolores)cmbColor.SelectedItem, (Docente)cmbDocente.SelectedItem, (ETurno)cmbTurno.SelectedItem);
+                existe = true;
+                btnGuardar.Enabled = true;
+
 
             }
 
             if (!(aula is null))
             {
-               // int indice = lstAlumnosSinSala.SelectedIndex;  //ACA TENGO PROBLEMASS CUANDO HAGO MAS DE 1
+                // int indice = lstAlumnosSinSala.SelectedIndex;  //ACA TENGO PROBLEMASS CUANDO HAGO MAS DE 1
 
-                if (this.aula + alumnos[lstAlumnosSinSala.SelectedIndex])                                
+                if (this.aula + alumnos[lstAlumnosSinSala.SelectedIndex])
                 {
-                                                           //indice++;  mover el indice de auno parriba?
 
-                    lstAlumnosEn.Items.Add(alumnos[lstAlumnosSinSala.SelectedIndex]);      //pasarlo de una lista a la otra, borrarlo de la vieja                                           
-                                                                   
-                    
-                    
+
+                    lstAlumnosEn.Items.Add(alumnos[lstAlumnosSinSala.SelectedIndex]);       //pasarlo de una lista a la otra, borrarlo de la vieja                                           
+
+
+
                     return true;
                 }
                 else
                 {
                     return false;
                 }
-               
+
             }
             return false;
         }
@@ -149,30 +191,12 @@ namespace ProyectoJardin
 
             if (AgregarAlumnosAlAula())
             {
-               
-                lstAlumnosSinSala.Items.RemoveAt(lstAlumnosSinSala.SelectedIndex);
-                this.ListaAlumnos = alumnos;
+
+                alumnos.Remove(alumnos[lstAlumnosSinSala.SelectedIndex]);                //lo borro de la lista original 
+                lstAlumnosSinSala.Items.RemoveAt(lstAlumnosSinSala.SelectedIndex);      //lo borro de la lista sinAula
+                this.ListaAlumnos = alumnos;                                           //lo seteo para que viaje sin esos alumnos al FrmPrincipal
             }
-            //if (aula is null)
-            //{
 
-            //    aula = new Aula((Ecolores)cmbColor.SelectedItem, (Docente)cmbDocente.SelectedItem, (ETurno)cmbTurno.SelectedItem);
-
-            //}
-
-            //if (!(aula is null))
-            //{
-            //    int indice = lstAlumnosSinSala.SelectedIndex;  //ACA TENGO PROBLEMASS CUANDO HAGO MAS DE 1
-
-            //    if (this.aula + alumnos[indice])  //se me desfasa el indice, y si le paso el LSTALUMNOS no me dejaaa
-            //    {
-            //                                                          //aula.Alumnos.Add(alumnos[lstAlumnosSinSala.SelectedIndex]); 
-            //        lstAlumnosEn.Items.Add(alumnos[lstAlumnosSinSala.SelectedIndex]);          //pasarlo de una lista a la otra, borrarlo de la vieja                                           
-            //        lstAlumnosSinSala.Items.RemovelAt(indice); //hacer en las listas logicas(aulas y alumnos), no la visuales, sacarlo a un metodo
-            //    }
-
-
-            //}
 
         }
 

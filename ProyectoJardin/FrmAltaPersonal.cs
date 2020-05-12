@@ -54,8 +54,12 @@ namespace ProyectoJardin
                  && Int32.TryParse(txtbHoraEntrada.Text, out horarioEntrada)
                  && Int32.TryParse(txtbHoraEntrada.Text, out horarioSalida)
                  && Int32.TryParse(txtbPrecioHora.Text, out precioxHora))
+
+           
             {
-             // docente = new Docente(nombre: txtNombre.Text, apellido: txtApellido.Text, dni: dni, femenino: rdbFemenino.Checked, horarioEntrada, horarioSalida, precioxHora); 
+                DateTime entrada = new DateTime(01, 01, 01, horarioEntrada, 00, 00);
+                DateTime salida = new DateTime(01, 01, 01, horarioSalida, 00, 00);
+                docente = new Docente(nombre: txtNombre.Text, apellido: txtApellido.Text, dni: dni, femenino: rdbFemenino.Checked, entrada, salida, precioxHora); 
             }
 
         }

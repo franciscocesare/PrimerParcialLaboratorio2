@@ -226,6 +226,7 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.GradientInactiveCaption;
             this.BackgroundImage = global::ProyectoJardin.Properties.Resources.jardines;
             this.ClientSize = new System.Drawing.Size(297, 384);
             this.Controls.Add(this.cmbCargos);
