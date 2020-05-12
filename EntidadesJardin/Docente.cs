@@ -38,8 +38,12 @@ namespace EntidadesJardin
 			this.HoraSalida = horaSalida;
 		}
 
-		
 
+
+		/// <summary>
+		/// override ToString para cada entidad calcular su salario
+		/// </summary>
+		/// <returns></returns> el calcular salario de cada entidad
 		public override double CalcularSalario()
 		{
 			//HoraEntrada = DateTime.Now.AddHours(0600);
@@ -50,9 +54,9 @@ namespace EntidadesJardin
 		}
 
 		/// <summary>
-		/// LA DE TO STRING ME PARECE QUE TIENE QUE TRAER TODOS TODOS LOS DATOS
-		/// </summary>
-		/// <returns></returns>
+		/// override ToString para cada entidad mostrar su datos
+		/// </summary>de la base trae atributos de personal
+		/// <returns></returns> los datos de Docente
 		public override string ToString()
 		{
 			StringBuilder sb = new StringBuilder();

@@ -34,14 +34,21 @@ namespace EntidadesJardin
             
         }
 
-        
 
-        // Redefine CalcularSalario multiplicando el salario base por el porcentaje de su cargo dividido 100 
+
+        /// <summary>
+        /// override ToString para cada entidad calcular su salario
+        /// </summary>
+        /// <returns></returns> el calcular salario de cada entidad
         public override double CalcularSalario()
         {
             return salarioBase * (double)cargo/100;
         }
 
+        /// <summary>
+		/// override ToString para cada entidad mostrar su datos
+		/// </summary>de la base trae atributos de personal
+		/// <returns></returns> los datos de Administrativo
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();

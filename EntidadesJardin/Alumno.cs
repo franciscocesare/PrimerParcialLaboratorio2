@@ -75,7 +75,10 @@ namespace EntidadesJardin
             return alumno.responsable;
         }
 
-
+        /// <summary>
+		/// override ToString para cada entidad mostrar su datos
+		/// </summary>de la base trae atributos de persona
+		/// <returns></returns> los datos de Alumno
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
