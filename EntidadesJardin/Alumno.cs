@@ -18,10 +18,9 @@ namespace EntidadesJardin
 
         public Alumno(string nombre, string apellido, int dni, bool femenino, float precioCuota) : base(nombre: nombre, apellido: apellido, dni: dni, femenino: femenino)
         {
-            // this.colorSala = colorSala;
-            //this.legajo = legajo;
+            
             this.precioCuota = precioCuota;
-            //this.responsable = responsable;
+           
             
         }
 
@@ -55,13 +54,17 @@ namespace EntidadesJardin
         public static bool operator ==(Alumno alum1, Alumno alum2)
         {
             if (!(alum1 is null))
-            {                                                                                           //muchas dudas si esto es lo de castear
-                return alum1.legajo == alum2.legajo && (Responsable)alum1 == (Responsable)alum2; //&& Responsable.ALGO ACA NO CIERRA
+            {                                                                                           
+                return alum1.legajo == alum2.legajo && (Responsable)alum1 == (Responsable)alum2; 
             }
 
             return false;
         }
-
+        /// <summary>
+        /// compara si dos alumnos son iguales
+        /// </summary>
+        /// <param name="alum1"></param>
+        /// <param name="alum2"></param>
 
         public static bool operator !=(Alumno alum1, Alumno alum2)
         {
@@ -69,6 +72,12 @@ namespace EntidadesJardin
             return !(alum1 == alum2);
         }
 
+        /// <summary>
+        /// castea a Responsable un alumno
+        /// </summary>
+        /// <param name="alumno"></param>
+        /// <returns></returns>al responsable de ese alumno
+        /// 
         public static implicit operator Responsable(Alumno alumno)
         {
 

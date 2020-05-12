@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
 using System.Drawing;
+using System.Drawing.Text;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -77,15 +78,18 @@ namespace ProyectoJardin
 
         }
 
+        /// <summary>
+        /// valida que se haya seleccionado algo para el alta aula
+        /// </summary>
+        /// <returns></returns>true si se selecciono algo en cada campo
         private bool ValidarDatosSala()
         {
-
 
             if (cmbColor.SelectedIndex != -1
                 && cmbTurno.SelectedIndex != -1
                 && cmbDocente.SelectedIndex != -1)
             {
-                btnGuardar.Enabled = true;
+
                 return true;
             }
 
@@ -95,12 +99,17 @@ namespace ProyectoJardin
             }
 
         }
-
+        /// <summary>
+        /// EVENTO doble click, si cargo datos, suma item AULA a la lista
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        /// 
         private void btnGuardar_Click(object sender, EventArgs e)
         {
             if (ValidarDatosSala())
             {
-                if (!aulas.Contains(aula)) //sino esta, la creas
+                if (!aulas.Contains(aula)) //sino esta le sumas a la lista el aula creada
                 {
 
                     this.aulas.Add(aula);
@@ -110,72 +119,68 @@ namespace ProyectoJardin
             }
 
             btnGuardar.Enabled = true;
-            cmbColor.Enabled = true;
-            cmbDocente.Enabled = true;
-            cmbTurno.Enabled = true;
-            existe = false;
-
             this.DialogResult = DialogResult.OK;
         }
 
-        bool existe = false;
+        //cmbColor.Enabled = true;
+        //cmbDocente.Enabled = true;
+        //cmbTurno.Enabled = true;
+        //existe = false;
 
-        private bool AgregarAlumnosAlAula()
+        /// <summary>
+        /// comprobar si el aula ya existe, y si tiene lugar
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        private bool ValidarExistenciaAula()
         {
-            if (!existe)
+            foreach (Aula item in aulas)  //recorro el array a ver si ya existe turno color
             {
-
-                foreach (Aula item in aulas)  //recorro el array a ver si ya existe turno color
+                if (item.ColorSala == (Ecolores)cmbColor.SelectedItem
+                    && item.Docente == (Docente)cmbDocente.SelectedItem
+                    && item.Turno == (ETurno)cmbTurno.SelectedItem)
                 {
-                    if (item.ColorSala == (Ecolores)cmbColor.SelectedItem
-                        && item.Docente == (Docente)cmbDocente.SelectedItem
-                        && item.Turno == (ETurno)cmbTurno.SelectedItem)
+                    return true;
+                }
 
+            }
+            return false;
+        }
+
+        bool existe;
+
+        /// <summary>
+        /// devuelve si se pudo guardar un alumno en un aula, si aula existia
+        /// </summary>
+        /// <returns></returns>
+        /// 
+        private bool MostrarAulaYaExiste()
+        {
+            string sexo;
+
+            foreach (Aula item in aulas)  //recorro el array a ver si ya existe turno color
+            {
+                if (ValidarExistenciaAula())
+
+                {
+                    aula = item;
+                    foreach (Alumno alumno in item.Alumnos)
                     {
-                        aula = item;
-
-                        foreach (Alumno alumno in item.Alumnos)
+                        if (alumno.Femenino)
                         {
-
-                            lstAlumnosEn.Items.Add($"{alumno.Apellido},{alumno.Nombre}");
-
+                            sexo = "Femenino";
                         }
-                        btnGuardar.Enabled = true;
-                        cmbColor.Enabled = false;
-                        cmbDocente.Enabled = false;
-                        cmbTurno.Enabled = false;
-                        existe = true;
-                        return false;
+                        else
+                            sexo = "Masculino";
+
+                        lstAlumnosEn.Items.Add($"{alumno.Apellido},{alumno.Nombre},{sexo},{alumno.Dni},{alumno.Legajo}");
+
                     }
 
 
-                }
-            }
-            if (aula is null)
-            {
-
-                aula = new Aula((Ecolores)cmbColor.SelectedItem, (Docente)cmbDocente.SelectedItem, (ETurno)cmbTurno.SelectedItem);
-                existe = true;
-                btnGuardar.Enabled = true;
-
-
-            }
-
-            if (!(aula is null))
-            {
-                 int indice = lstAlumnosSinSala.SelectedIndex;  //ACA TENGO PROBLEMASS CUANDO HAGO MAS DE 1
-
-                if (this.aula + alumnos[indice])
-                {
-
-                    lstAlumnosEn.Items.Add(alumnos[indice]);       //pasarlo de una lista a la otra, borrarlo de la vieja                                           
-
                     return true;
                 }
-                else
-                {
-                    return false;
-                }
+
 
             }
             return false;
@@ -183,18 +188,88 @@ namespace ProyectoJardin
 
 
 
-        private void lstAlumnosSinSala_MouseDoubleClick(object sender, MouseEventArgs e)
+        /// <summary>
+        /// agregar un alumno al aula existente
+        /// </summary>
+        /// <returns></returns>True si pudo agregar el alumno al aula existente
+        private void AgregarAlumnosAulaExiste()
         {
+          
+            
+            int indice = lstAlumnosSinSala.SelectedIndex;
 
-            if (AgregarAlumnosAlAula())
+            if (this.aula + alumnos[indice])
             {
 
+                lstAlumnosEn.Items.Add(alumnos[indice]);
                 alumnos.Remove(alumnos[lstAlumnosSinSala.SelectedIndex]);                //lo borro de la lista original 
+
                 lstAlumnosSinSala.Items.RemoveAt(lstAlumnosSinSala.SelectedIndex);      //lo borro de la lista sinAula
                 this.ListaAlumnos = alumnos;                                           //lo seteo para que viaje sin esos alumnos al FrmPrincipal
+
             }
 
+        }
 
+        private bool CrearAula()
+        {
+            if (aula is null)
+            {
+
+                aula = new Aula((Ecolores)cmbColor.SelectedItem, (Docente)cmbDocente.SelectedItem, (ETurno)cmbTurno.SelectedItem);
+               
+                existe = true;
+                btnGuardar.Enabled = true;
+
+                return true;
+            }
+
+            return false;
+        }
+
+        /// <summary>
+        /// pase un alumno de una lista a la otra,lo elimino. la lista se refresca
+        /// </summary>
+        /// <param name="sender"></param> mando a FrmPrincipal la lista refrescada de cambios
+        /// <param name="e"></param> lista de alumnos
+        /// 
+
+        //AgregarAlumnosAulaExiste() Agregar alumno a aula que existe
+        //MostrarAulaYaExiste() devuelve si se pudo guardar un alumno en un aula, si aula existia
+        //ValidarExistenciaAula()  si ya existe ese color ese turno ese docente
+
+        private void lstAlumnosSinSala_MouseDoubleClick(object sender, MouseEventArgs e)
+        {
+            btnGuardar.Enabled = true;
+
+            if (ValidarExistenciaAula()) //si es null crea el aula con
+            {
+                if(!(existe))
+                {
+                    MostrarAulaYaExiste();
+                    AgregarAlumnosAulaExiste();
+                    existe = true;
+                }
+                else
+                {
+                    AgregarAlumnosAulaExiste();
+                    existe = true;
+                }
+                                  
+            }
+            else
+            {
+                if ((!existe) && CrearAula()  )
+                {
+
+                  AgregarAlumnosAulaExiste();
+
+                }
+                else
+                {
+                    AgregarAlumnosAulaExiste();
+                }
+            }
         }
 
         private void cmbColor_SelectedIndexChanged(object sender, EventArgs e)
@@ -235,9 +310,9 @@ namespace ProyectoJardin
             if (MessageBox.Show("¿Deseas Salir?", "Abandonando Carga", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
 
             {
-                this.Close();
+               this.Close();
             }
-            
+
         }
     }
 }
