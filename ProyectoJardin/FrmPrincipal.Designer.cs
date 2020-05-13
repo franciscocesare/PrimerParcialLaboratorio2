@@ -189,7 +189,7 @@
             this.lstBoxPrincipal.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lstBoxPrincipal.FormattingEnabled = true;
             this.lstBoxPrincipal.ItemHeight = 16;
-            this.lstBoxPrincipal.Location = new System.Drawing.Point(0, 0);
+            this.lstBoxPrincipal.Location = new System.Drawing.Point(0, 27);
             this.lstBoxPrincipal.Name = "lstBoxPrincipal";
             this.lstBoxPrincipal.Size = new System.Drawing.Size(659, 564);
             this.lstBoxPrincipal.TabIndex = 3;

@@ -119,6 +119,9 @@ namespace ProyectoJardin
             }
 
             btnGuardar.Enabled = true;
+            cmbColor.Enabled = true;
+            cmbDocente.Enabled = true;
+            cmbTurno.Enabled = true;
             this.DialogResult = DialogResult.OK;
         }
 
@@ -176,12 +179,8 @@ namespace ProyectoJardin
                         lstAlumnosEn.Items.Add($"{alumno.Apellido},{alumno.Nombre},{sexo},{alumno.Dni},{alumno.Legajo}");
 
                     }
-
-
                     return true;
                 }
-
-
             }
             return false;
         }
@@ -208,6 +207,8 @@ namespace ProyectoJardin
                 this.ListaAlumnos = alumnos;                                           //lo seteo para que viaje sin esos alumnos al FrmPrincipal
 
             }
+            else
+                MessageBox.Show("aula completa!");
 
         }
 
@@ -241,6 +242,10 @@ namespace ProyectoJardin
         private void lstAlumnosSinSala_MouseDoubleClick(object sender, MouseEventArgs e)
         {
             btnGuardar.Enabled = true;
+            cmbColor.Enabled = false;
+            cmbDocente.Enabled = false;
+            cmbTurno.Enabled = false;
+            
 
             if (ValidarExistenciaAula()) //si es null crea el aula con
             {
@@ -249,6 +254,7 @@ namespace ProyectoJardin
                     MostrarAulaYaExiste();
                     AgregarAlumnosAulaExiste();
                     existe = true;
+                  
                 }
                 else
                 {
@@ -272,6 +278,11 @@ namespace ProyectoJardin
             }
         }
 
+        /// <summary>
+        /// eligio color del combobox se cambia en el frm
+        /// </summary>
+        /// <param name="sender"></param>indice de enumerado color
+        /// <param name="e"></param> cambiar el color
         private void cmbColor_SelectedIndexChanged(object sender, EventArgs e)
         {
             int indice = cmbColor.SelectedIndex;
@@ -313,6 +324,18 @@ namespace ProyectoJardin
                this.Close();
             }
 
+        }
+
+        private void lstAlumnosEn_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            int indice = lstAlumnosSinSala.SelectedIndex;
+
+                lstAlumnosEn.Items.Remove(lstAlumnosSinSala.SelectedIndex);
+                lstAlumnosSinSala.Items.Add(lstAlumnosSinSala.SelectedIndex);  
+
+                alumnos.Add(alumnos[indice]);                //lo borro de la lista original 
+                this.ListaAlumnos = alumnos;
+                             //lo borro de la lista sinAula
         }
     }
 }

@@ -252,6 +252,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmAltaPersonal";
             this.Opacity = 0.9D;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "FrmAltaPersonal";
             this.Load += new System.EventHandler(this.FrmAltaPersonal_Load_1);
             this.ResumeLayout(false);

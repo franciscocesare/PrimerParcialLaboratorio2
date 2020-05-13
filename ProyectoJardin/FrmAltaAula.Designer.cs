@@ -143,6 +143,7 @@
             this.lstAlumnosEn.Name = "lstAlumnosEn";
             this.lstAlumnosEn.Size = new System.Drawing.Size(290, 342);
             this.lstAlumnosEn.TabIndex = 5;
+            this.lstAlumnosEn.SelectedIndexChanged += new System.EventHandler(this.lstAlumnosEn_SelectedIndexChanged);
             // 
             // btnCancelar
             // 
@@ -179,7 +180,7 @@
             this.MinimizeBox = false;
             this.Name = "FrmAltaAula";
             this.Opacity = 0.85D;
-            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Agregar Pichoncitos a las Aulas";
             this.Load += new System.EventHandler(this.FrmAltaAula_Load);
             this.ResumeLayout(false);

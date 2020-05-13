@@ -292,27 +292,20 @@ namespace ProyectoJardin
 
         }
 
-
-
-
         private void informacionPadresToolStripMenuItem_Click(object sender, EventArgs e)
         {
             MessageBox.Show("Despues de revisar,\nDoble click para cerrar la lista");
             lstBoxPrincipal.Visible = true;
+            
 
             for (int i = 0; i < responsables.Count; i++)
             {
                 lstBoxPrincipal.Text += responsables[i].ToString();
-
             }
+           // lstBoxPrincipal.SelectedItem
 
 
         }
-
-
-
-
-
 
         private void verAulasToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -322,12 +315,12 @@ namespace ProyectoJardin
 
             for (int i = 0; i < aulas.Count; i++)
             {
-                lstBoxPrincipal.Items.Add($"Aula: {aulas[i].ColorSala}\n Docente: {aulas[i].Docente.Apellido}, {aulas[i].Docente.Nombre}");
+                lstBoxPrincipal.Items.Add($"Aula: {aulas[i].ColorSala}Docente: {aulas[i].Docente.Apellido}, {aulas[i].Docente.Nombre}Turno: {aulas[i].Turno}");
 
                 foreach (Alumno item in aulas[i].Alumnos)
                 {
 
-                    lstBoxPrincipal.Items.Add($"{item.Apellido},{item.Nombre}");
+                    lstBoxPrincipal.Items.Add($"{item.Apellido},{item.Nombre}, {item.Legajo}");
 
                 }
 
@@ -350,7 +343,8 @@ namespace ProyectoJardin
             }
 
             MessageBox.Show("Despues de revisar,\nDoble click para cerrar la lista");
-            lstBoxPrincipal.Visible = true;  
+            lstBoxPrincipal.Visible = true;
+            lstBoxPrincipal.Items.Clear();
             lstBoxPrincipal.Items.Add("La recaudacion total fue de $" + recaudacion.ToString());
         }
 

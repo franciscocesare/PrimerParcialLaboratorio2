@@ -175,6 +175,7 @@
             this.Margin = new System.Windows.Forms.Padding(2);
             this.Name = "FrmAltaAlumno";
             this.Opacity = 0.85D;
+            this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Alta de Pichones";
             this.Load += new System.EventHandler(this.FrmAltaAlumno_Load);
             this.ResumeLayout(false);
