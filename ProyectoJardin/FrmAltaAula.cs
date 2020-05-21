@@ -328,14 +328,14 @@ namespace ProyectoJardin
 
         private void lstAlumnosEn_SelectedIndexChanged(object sender, EventArgs e)
         {
-            int indice = lstAlumnosSinSala.SelectedIndex;
+            //int indice = lstAlumnosSinSala.SelectedIndex;
 
-                lstAlumnosEn.Items.Remove(lstAlumnosSinSala.SelectedIndex);
-                lstAlumnosSinSala.Items.Add(lstAlumnosSinSala.SelectedIndex);  
+            //    lstAlumnosEn.Items.Remove(lstAlumnosSinSala.SelectedIndex);
+            //    lstAlumnosSinSala.Items.Add(lstAlumnosSinSala.SelectedIndex);  
 
-                alumnos.Add(alumnos[indice]);                //lo borro de la lista original 
-                this.ListaAlumnos = alumnos;
-                             //lo borro de la lista sinAula
+            //    alumnos.Add(alumnos[indice]);                //lo borro de la lista original 
+            //    this.ListaAlumnos = alumnos;
+            //                 //lo borro de la lista sinAula
         }
     }
 }

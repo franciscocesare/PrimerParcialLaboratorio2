@@ -38,7 +38,35 @@ namespace ProyectoJardin
 
 
         }
+       
+        public List<Aula> Aulas
+        {
+            get { return this.aulas; }
+            set { this.aulas = value; }
+        }
 
+        public List<Administrativo> Personal
+        {
+            get { return this.personal; }
+            set { this.personal = value; }
+        }
+
+        public List<Alumno> Alumnos
+        {
+            get { return this.alumnos; }
+            set { this.alumnos = value; }
+        }
+            public List<Docente> Docentes
+        {
+            get { return this.docentes; }
+            set { this.docentes = value; }
+        }
+
+        public List<Responsable> Responsable
+        {
+            get { return this.responsables; }
+            set { this.responsables = value; }
+        }
 
 
         public Aula Aula
@@ -54,14 +82,16 @@ namespace ProyectoJardin
             Form frmLogin = new Form();
             frmLogin.MdiParent = this; //Princ va a ser el padre
             lstBoxPrincipal.Visible = false;
+            
             //  frmLogin.Show();
         }
 
         #region hardcodeos de datos!
-
-        private void btnLoadPruebas_Click(object sender, EventArgs e)
+        public void HardocodearAlumResponsables()
         {
-            SoundPlayer sonido = new SoundPlayer(@"C:\Windows\Media\notify.wav"); sonido.Play();
+            //tendria que hardcodear los 50 responsables la yuta madre?
+            responsables.Add(new Responsable("Lautaro", "Acosta", 35994837, false, EParentezco.Tio, "1136654545"));
+            responsables.Add(new Responsable("Gonzalo", "Bellozo", 31443233, false, EParentezco.Padre, "1132325654"));
 
             Random dni = new Random();
 
@@ -98,16 +128,16 @@ namespace ProyectoJardin
             alumnos.Add(new Alumno("keke", "benitez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("salome", "teas", dni.Next(40000000, 50000000), true, 1500));
             alumnos.Add(new Alumno("marcelo", "ramirez", dni.Next(40000000, 50000000), false, 1800));
-            alumnos.Add(new Alumno("jose", "benitez", dni.Next(40000000, 50000000), false, 1500));
+            alumnos.Add(new Alumno("gonzalo", "benitez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("thalia", "bermudez", dni.Next(40000000, 50000000), true, 1500));
             alumnos.Add(new Alumno("ezequiel", "lepu", dni.Next(40000000, 50000000), false, 1800));
-            alumnos.Add(new Alumno("jose", "parci", dni.Next(40000000, 50000000), false, 1500));
+            alumnos.Add(new Alumno("joselo", "parci", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("jimena", "shaki", dni.Next(40000000, 50000000), true, 1500));
             alumnos.Add(new Alumno("rodrigo", "diaz", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("brian", "benitez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("Ximena", "gomez", dni.Next(40000000, 50000000), true, 1500));
             alumnos.Add(new Alumno("matias", "legrand", dni.Next(40000000, 50000000), false, 1800));
-            alumnos.Add(new Alumno("jose", "benitez", dni.Next(40000000, 50000000), false, 1500));
+            alumnos.Add(new Alumno("josete", "benitez", dni.Next(40000000, 50000000), false, 1500));
             alumnos.Add(new Alumno("jimena", "teas", dni.Next(40000000, 50000000), true, 1500));
             alumnos.Add(new Alumno("german", "lepu", dni.Next(40000000, 50000000), false, 1800));
             alumnos.Add(new Alumno("jose", "benitez", dni.Next(40000000, 50000000), false, 1500));
@@ -124,19 +154,15 @@ namespace ProyectoJardin
             for (int i = 0; i < alumnos.Count; i++) //asigno legajo a todos los harcodeados
             {
                 alumnos[i].Legajo = legajo;
+                alumnos[i].Responsable = responsables[0]; //a todos el mismo responsable, salvo cuando es un ALTA
                 legajo++;
 
             }
 
+        }
 
-            //tendria que hardcodear los 50 responsables la yuta madre?
-            responsables.Add(new Responsable("Lautaro", "Acosta", 35994837, false, EParentezco.Tio, "1136654545"));
-            responsables.Add(new Responsable("Gonzalo", "Bellozo", 31443233, false, EParentezco.Padre, "1132325654"));
-
-            //terminar los datetime para calcular los salarios
-            DateTime miDia = Convert.ToDateTime("07:30 AM");   //ver de armar un date.now, 
-            miDia = miDia.AddHours(5);   //le mandas las horas que queres sumar para el horario de salida, podes hacer.addminutes
-
+        public void HardcodearDocentes()
+        {
             int horaEntrada = 7;
             int horaSalida = 13;
             DateTime entrada = new DateTime(01, 01, 01, horaEntrada, 00, 00);
@@ -148,7 +174,10 @@ namespace ProyectoJardin
             docentes.Add(new Docente("Jimena", "Perez", 32191269, true, entrada, salida, 400));
             docentes.Add(new Docente("Stella", "Marne", 25191666, true, entrada, salida, 400));
             docentes.Add(new Docente("Stella", "Lurruti", 25191539, true, entrada, salida, 400));
+        }
 
+        public void HardocodearAulas()
+        {
             Aula aula1 = new Aula(Ecolores.Verde, docentes[3], ETurno.Tarde);  //creo el aula, sumo alumnos y los elimino de la otra lista
             aula1.Alumnos.Add(alumnos[0]);
             aula1.Alumnos.Add(alumnos[1]);
@@ -179,19 +208,27 @@ namespace ProyectoJardin
             alumnos.Remove(alumnos[9]);
 
 
-            aulas.Add(aula1);  ///ver aca si esta bien??
+            aulas.Add(aula1);  
             aulas.Add(aula2);
             aulas.Add(aula3);
 
+        }
 
+        private void btnLoadPruebas_Click(object sender, EventArgs e)
+        {
+            SoundPlayer sonido = new SoundPlayer(@"C:\Windows\Media\notify.wav"); sonido.Play();
+
+            this.HardocodearAlumResponsables();
+            this.HardcodearDocentes();
+            this.HardocodearAulas();
+
+           
             if (!(alumnos is null) || responsables is null || docentes is null || aulas is null)
             {
                 if (MessageBox.Show("¿Vamos a hacer unas pruebas ahora?", "Hardcodeos de prueba cargados", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
                 {
 
-
                     btnLoadPruebas.Enabled = false;
-
                 }
                 else
                 {
@@ -344,13 +381,13 @@ namespace ProyectoJardin
 
             MessageBox.Show("Despues de revisar,\nDoble click para cerrar la lista");
             lstBoxPrincipal.Visible = true;
-            lstBoxPrincipal.Items.Clear();
+          //  lstBoxPrincipal.Items.Clear();
             lstBoxPrincipal.Items.Add("La recaudacion total fue de $" + recaudacion.ToString());
         }
 
         private void lstBoxPrincipal_MouseDoubleClick(object sender, MouseEventArgs e)
         {
-            MessageBox.Show("Cerrado la lista");
+            MessageBox.Show("Cerrando la lista");
             lstBoxPrincipal.Visible = false;
         }
     }

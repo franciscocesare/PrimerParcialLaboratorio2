@@ -17,7 +17,7 @@ namespace EntidadesJardin
         {
             this.nombre = nombre;
             this.apellido = apellido;
-            this.dni = dni;
+            this.Dni = dni;  //cuando se setea es por la propiedad, para qeu pase la evaluacion que hice
 
         }
 
@@ -42,8 +42,16 @@ namespace EntidadesJardin
 
         public int Dni
         {
-            get { return dni; }
-            set { dni = value; }
+            get { return this.dni; }
+
+
+            set
+            {
+
+                ValidarPersonaSinDNI(value);  //va a lanzar una excepcion si es menor a 1000000
+                this.dni = value;
+
+            }
         }
 
 
@@ -80,7 +88,7 @@ namespace EntidadesJardin
             {
                 sb.AppendLine(" Masculino ");
             }
-            
+
             return sb.ToString();
         }
 
@@ -95,8 +103,15 @@ namespace EntidadesJardin
             return !(string.IsNullOrEmpty(s));
         }
 
+        public void ValidarPersonaSinDNI(int value)   //un ejemplo para los test unit
 
+        {
+            if (value < 1000000)
+            {
+                throw new PersonaSinDniException("Numero de DNI invalido!");  ///QUE TENGO QUE HACER CON TRY Y CATCH, ESTA MAL ESTE TEMA
+            }
 
+        }
 
 
 

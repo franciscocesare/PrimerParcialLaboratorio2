@@ -47,6 +47,7 @@
     <Compile Include="Administrativo.cs" />
     <Compile Include="Alumno.cs" />
     <Compile Include="Aula.cs" />
+    <Compile Include="PersonaSinDniException.cs" />
     <Compile Include="Docente.cs" />
     <Compile Include="Enumerados.cs" />
     <Compile Include="Persona.cs" />

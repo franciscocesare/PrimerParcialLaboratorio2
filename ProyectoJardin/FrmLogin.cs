@@ -40,10 +40,9 @@ namespace ProyectoJardin
         {
             cmbUsuario.Items.Clear();
             cmbUsuario.DataSource = Enum.GetValues(typeof(ECargo));
+            
+            
            
-            //NO TIENE QUE ESTAR COCINA
-
-
         }
 
 

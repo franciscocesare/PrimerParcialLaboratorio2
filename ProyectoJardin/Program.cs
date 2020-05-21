@@ -17,7 +17,7 @@ namespace ProyectoJardin
         {
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new FrmLogin());  ///pasarle el de LOGINNNN
+            Application.Run(new FrmPrincipal());  ///pasarle el de LOGINNNN
         }
     }
 }
