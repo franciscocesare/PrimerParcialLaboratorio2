@@ -77,8 +77,8 @@ namespace EntidadesJardin
         public override string ToString()
         {
             StringBuilder sb = new StringBuilder();
-            sb.AppendLine($"{this.Nombre} ");
-            sb.AppendLine($"{this.Apellido}");
+            sb.AppendLine($"{this.nombre} ");
+            sb.AppendLine($"{this.apellido}");
             sb.AppendLine($" Dni: {this.Dni} ");
             if (this.femenino)
             {
@@ -100,7 +100,7 @@ namespace EntidadesJardin
 
         public static bool ValidarCargaStringForms(string s)
         {
-            return !(string.IsNullOrEmpty(s));
+            return (!(string.IsNullOrEmpty(s)));
         }
 
         public void ValidarPersonaSinDNI(int value)   //un ejemplo para los test unit
@@ -113,7 +113,7 @@ namespace EntidadesJardin
 
         }
 
-
+        
 
     }
 }

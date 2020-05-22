@@ -52,8 +52,7 @@ namespace ProyectoJardin
 
             if (Persona.ValidarCargaStringForms(txtBnombre.Text)
                 && Persona.ValidarCargaStringForms(txtBapellido.Text)
-                && Int32.TryParse(txtBdni.Text, out dni)
-                && Enum.TryParse<EParentezco>(cmbParentezco.SelectedIndex.ToString(), out parentezco))
+                && Persona.ValidarCargaEnteroForms(txtBdni.Text, 40000000, 5000000))
             {
                 alumno.Responsable = new Responsable(nombre: txtBnombre.Text, apellido: txtBapellido.Text, dni: dni, femenino: rdBtnFemenino.Checked, parentezco, txtBtelefono.Text) ;
                 

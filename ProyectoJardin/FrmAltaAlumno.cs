@@ -33,7 +33,7 @@ namespace ProyectoJardin
             set { this.responsables = value; }
         }
 
-        public FrmAltaAlumno(List<Responsable> responsables) //no pasa por aca!
+        public FrmAltaAlumno(List<Responsable> responsables) 
         {
             this.responsables = responsables;
         }
@@ -43,7 +43,7 @@ namespace ProyectoJardin
         public FrmAltaAlumno()
         {
             InitializeComponent();
-            //this.responsable  = new Responsable();
+            
         }
 
 
@@ -66,11 +66,11 @@ namespace ProyectoJardin
 
             if (Persona.ValidarCargaStringForms(txtNombre.Text)
                  && Persona.ValidarCargaStringForms(txtApellido.Text)
-                 && Int32.TryParse(txtDni.Text, out dni))
+                 && Persona.ValidarCargaEnteroForms(txtDni.Text,50000000,40000000))
             {
+                dni = int.Parse(txtDni.Text);
                 float cuota = float.Parse(txtCuota.Text);
                 alumno = new Alumno(nombre: txtNombre.Text, apellido: txtApellido.Text, dni: dni, femenino: rdbNiña.Checked, precioCuota: cuota);
-
 
                 FrmAltaResponsables frmAltaResponsables = new FrmAltaResponsables(alumno);//tiene sobrecargas para asignar, aca una de responsables
                 frmAltaResponsables.ShowDialog();
@@ -85,7 +85,14 @@ namespace ProyectoJardin
                     MessageBox.Show("se canceló con exito");
                 }
 
+
             }
+            else
+            {
+                MessageBox.Show("Faltan Datos o Estan Erroneos");
+                return;
+            }
+
             this.DialogResult = DialogResult.OK;
 
         }
