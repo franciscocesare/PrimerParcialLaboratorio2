@@ -54,6 +54,8 @@ namespace ProyectoJardin
                 && Persona.ValidarCargaStringForms(txtBapellido.Text)
                 && Persona.ValidarCargaEnteroForms(txtBdni.Text, 40000000, 5000000))
             {
+                parentezco = (EParentezco)cmbParentezco.SelectedItem;
+                dni = int.Parse(txtBdni.Text);
                 alumno.Responsable = new Responsable(nombre: txtBnombre.Text, apellido: txtBapellido.Text, dni: dni, femenino: rdBtnFemenino.Checked, parentezco, txtBtelefono.Text) ;
                 
             }

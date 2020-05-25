@@ -285,6 +285,8 @@ namespace ProyectoJardin
             {
                 frmAlumno.Alumno.Legajo = legajo++;
                 this.alumnos.Add(frmAlumno.Alumno);
+                this.responsables.Add(frmAlumno.Alumno.Responsable);
+
             }
             else if (frmAlumno.DialogResult == DialogResult.Cancel)
             {
@@ -337,7 +339,7 @@ namespace ProyectoJardin
 
             for (int i = 0; i < responsables.Count; i++)
             {
-                lstBoxPrincipal.Text += responsables[i].ToString();
+                lstBoxPrincipal.Items.Add(responsables[i].ToString());
             }
            // lstBoxPrincipal.SelectedItem
 

@@ -23,7 +23,6 @@ namespace TestUnitario
         public void PersonaDniValido()
         {
             Alumno a1 = new Alumno("pepe", "peposo", 24424242, false, 1200);
-
             Assert.IsNotNull(a1); 
         }
 
