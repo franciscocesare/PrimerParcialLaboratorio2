@@ -149,18 +149,21 @@
             this.sueldoDocenteToolStripMenuItem.Name = "sueldoDocenteToolStripMenuItem";
             this.sueldoDocenteToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.sueldoDocenteToolStripMenuItem.Text = "Sueldo Docente";
+            this.sueldoDocenteToolStripMenuItem.Click += new System.EventHandler(this.sueldoDocenteToolStripMenuItem_Click);
             // 
             // sueldoNoDocenteToolStripMenuItem
             // 
             this.sueldoNoDocenteToolStripMenuItem.Name = "sueldoNoDocenteToolStripMenuItem";
             this.sueldoNoDocenteToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.sueldoNoDocenteToolStripMenuItem.Text = "Sueldo No Docente";
+            this.sueldoNoDocenteToolStripMenuItem.Click += new System.EventHandler(this.sueldoNoDocenteToolStripMenuItem_Click);
             // 
             // recaudacionPorAulaToolStripMenuItem
             // 
             this.recaudacionPorAulaToolStripMenuItem.Name = "recaudacionPorAulaToolStripMenuItem";
             this.recaudacionPorAulaToolStripMenuItem.Size = new System.Drawing.Size(190, 22);
             this.recaudacionPorAulaToolStripMenuItem.Text = "Recaudacion Por Aula";
+            this.recaudacionPorAulaToolStripMenuItem.Click += new System.EventHandler(this.recaudacionPorAulaToolStripMenuItem_Click);
             // 
             // pictureBox1
             // 

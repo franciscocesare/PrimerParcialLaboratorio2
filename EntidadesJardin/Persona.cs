@@ -47,9 +47,19 @@ namespace EntidadesJardin
 
             set
             {
+                try
+                {
+                    ValidarPersonaSinDNI(value);  //va a lanzar una excepcion si es menor a 1000000
+                    this.dni = value;
+                }
+                catch (PersonaSinDniException ex) //EX la instancia de la excepcion que me fallo
+                {
 
-                ValidarPersonaSinDNI(value);  //va a lanzar una excepcion si es menor a 1000000
-                this.dni = value;
+                    throw new PersonaSinDniException("te dije que era invalido", ex);
+
+                }
+
+                
 
             }
         }
@@ -95,11 +105,14 @@ namespace EntidadesJardin
 
         public static bool ValidarCargaEnteroForms(string s, int max, int min)
         {
+                      
             return int.TryParse(s, out int numeroARetornar) && numeroARetornar > min && numeroARetornar < max;
         }
 
         public static bool ValidarCargaStringForms(string s)
         {
+
+           
             return (!(string.IsNullOrEmpty(s)));
         }
 

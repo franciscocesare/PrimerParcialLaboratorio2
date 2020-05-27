@@ -53,14 +53,18 @@ namespace ProyectoJardin
         }
 
 
+        /*
+         *  if (Persona.ValidarCargaStringForms(txtBnombre.Text)
+                && Persona.ValidarCargaStringForms(txtBapellido.Text)
+                && Persona.ValidarCargaEnteroForms(txtBdni.Text, 40000000, 5000000))
+         */
 
-       
 
         private bool ValidarCargasHechas()
         {
             if (Persona.ValidarCargaStringForms(txtNombre.Text)
                 && Persona.ValidarCargaStringForms(txtApellido.Text)
-                && Int32.TryParse(txtDni.Text, out dni)
+                && Persona.ValidarCargaEnteroForms(txtDni.Text, 40000000, 5000000) //entre 5 millones y 40 millones
                 && Int32.TryParse(txtbHoraEntrada.Text, out horarioEntrada)
                 && Int32.TryParse(txtbHoraSalida.Text, out horarioSalida))
             {
@@ -70,7 +74,6 @@ namespace ProyectoJardin
             return false;
         }
 
-        int dni;   //las uso para lñas dos altas!
         int horarioEntrada;
         int horarioSalida;
 
@@ -78,13 +81,15 @@ namespace ProyectoJardin
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
             ECargo cargo;
+            int dni = int.Parse(txtDni.Text);
+
 
             double precioxHora;
 
             if (ValidarCargasHechas() && btnAceptar.Text == "Cargar Docente"
                                        && double.TryParse(txtbPrecioHora.Text, out precioxHora))
             {
-                DateTime entrada = new DateTime(01, 01, 01, horarioEntrada, 00, 00);
+                DateTime entrada = new DateTime(01, 01, 01, horarioEntrada, 00, 00); //si le saco despues de la coma los dos 00????
                 DateTime salida = new DateTime(01, 01, 01, horarioSalida, 00, 00);
 
                 docente = new Docente(nombre: txtNombre.Text, apellido: txtApellido.Text, dni: dni, femenino: rdbFemenino.Checked, entrada, salida, precioxHora);
@@ -93,15 +98,16 @@ namespace ProyectoJardin
                 this.DialogResult = DialogResult.OK;
 
 
-            }                                          
+            }
 
-            else if(ValidarCargasHechas() && btnAceptar.Text== "Cargar Personal" 
-                 && Enum.TryParse<ECargo>(cmbCargos.SelectedItem.ToString(), out cargo))
+            else if (ValidarCargasHechas() && btnAceptar.Text == "Cargar Personal"
+                   && Enum.TryParse<ECargo>(cmbCargos.SelectedItem.ToString(), out cargo))
             {
                 DateTime entrada = new DateTime(01, 01, 01, horarioEntrada, 00, 00);
                 DateTime salida = new DateTime(01, 01, 01, horarioSalida, 00, 00);
                 personal = new Administrativo(txtApellido.Text, txtNombre.Text, dni, rdbFemenino.Checked, entrada, salida, cargo);
                 ListaPersonal.Add(personal);
+                MessageBox.Show("alta exitosa \n" + personal.Apellido);
 
                 this.DialogResult = DialogResult.OK;
 
@@ -110,8 +116,8 @@ namespace ProyectoJardin
         }
 
 
-    
-        
+
+
 
         private void FrmAltaPersonal_Load_1(object sender, EventArgs e)
         {
@@ -141,8 +147,8 @@ namespace ProyectoJardin
             cmbCargos.Visible = false;
             cmbCargos.Visible = true;
             label1.Visible = false;
-           
-            
+
+
             btnAceptar.Text = "Cargar Personal";
         }
 
@@ -156,7 +162,7 @@ namespace ProyectoJardin
             }
         }
 
-      
+
     }
 
 

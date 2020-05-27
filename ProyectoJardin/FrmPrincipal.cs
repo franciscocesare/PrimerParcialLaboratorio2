@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Media;
 using WPFCustomMessageBox;
+using ProyectoJardin;
 
 namespace ProyectoJardin
 {
@@ -34,11 +35,21 @@ namespace ProyectoJardin
             responsables = new List<Responsable>();
             personal = new List<Administrativo>();
             aulas = new List<Aula>();
-        
+            aula = new Aula();
+
 
 
         }
-       
+
+        
+
+        public Aula Aula
+        {
+            get { return this.aula; }
+            set { this.aula = value; }
+        }
+
+
         public List<Aula> Aulas
         {
             get { return this.aulas; }
@@ -56,7 +67,7 @@ namespace ProyectoJardin
             get { return this.alumnos; }
             set { this.alumnos = value; }
         }
-            public List<Docente> Docentes
+        public List<Docente> Docentes
         {
             get { return this.docentes; }
             set { this.docentes = value; }
@@ -69,11 +80,6 @@ namespace ProyectoJardin
         }
 
 
-        public Aula Aula
-        {
-            get { return aula; }
-            set { aula = value; }
-        }
 
 
         private void FrmPrincipal_Load(object sender, EventArgs e)
@@ -82,7 +88,7 @@ namespace ProyectoJardin
             Form frmLogin = new Form();
             frmLogin.MdiParent = this; //Princ va a ser el padre
             lstBoxPrincipal.Visible = false;
-            
+
             //  frmLogin.Show();
         }
 
@@ -161,7 +167,7 @@ namespace ProyectoJardin
 
         }
 
-        public void HardcodearDocentes()
+        public void HardcodearNoDocentes()
         {
             int horaEntrada = 7;
             int horaSalida = 13;
@@ -169,8 +175,28 @@ namespace ProyectoJardin
             DateTime salida = new DateTime(01, 01, 01, horaSalida, 00, 00);
 
 
+            personal.Add(new Administrativo("Mariana", "Martinez", 29192329, true, entrada, salida, ECargo.Cocina));
+            personal.Add(new Administrativo("Pepe", "Diaznovi", 33434333, false, entrada, salida, ECargo.Portería));
+            personal.Add(new Administrativo("Jazmin", "Perere", 35145269, true, entrada, salida, ECargo.Tesorería));
+            personal.Add(new Administrativo("Susana", "Mariani", 34992666, true, entrada, salida, ECargo.Secretaría));
+            personal.Add(new Administrativo("Estela", "Carrasco", 31554539, true, entrada, salida, ECargo.Secretaría));
+            personal.Add(new Administrativo("Marilu", "Martinez", 29192329, true, entrada, salida, ECargo.Cocina));
+            personal.Add(new Administrativo("Rodrigo", "Divi", 33434333, false, entrada, salida, ECargo.Portería));
+            personal.Add(new Administrativo("Jacinta", "Peamo", 35145998, true, entrada, salida, ECargo.Tesorería));
+            personal.Add(new Administrativo("Mariana", "Miani", 34992326, true, entrada, salida, ECargo.Secretaría));
+            personal.Add(new Administrativo("Carolina", "Casco", 30339539, true, entrada, salida, ECargo.Secretaría));
+
+        }
+
+        public void HardcodearDocentes()
+        {
+            int horaEntrada = 7;
+            int horaSalida = 13;
+            DateTime entrada = new DateTime(01, 01, 01, horaEntrada, 00, 00);
+            DateTime salida = new DateTime(01, 01, 01, horaSalida, 00, 00);
+
             docentes.Add(new Docente("Maria", "Martinez", 29192329, true, entrada, salida, 400));
-            docentes.Add(new Docente("Raul", "Diaz", 31195429, true, entrada, salida, 400));
+            docentes.Add(new Docente("Raul", "Diaz", 31195429, false, entrada, salida, 400));
             docentes.Add(new Docente("Jimena", "Perez", 32191269, true, entrada, salida, 400));
             docentes.Add(new Docente("Stella", "Marne", 25191666, true, entrada, salida, 400));
             docentes.Add(new Docente("Stella", "Lurruti", 25191539, true, entrada, salida, 400));
@@ -208,7 +234,7 @@ namespace ProyectoJardin
             alumnos.Remove(alumnos[9]);
 
 
-            aulas.Add(aula1);  
+            aulas.Add(aula1);
             aulas.Add(aula2);
             aulas.Add(aula3);
 
@@ -220,9 +246,10 @@ namespace ProyectoJardin
 
             this.HardocodearAlumResponsables();
             this.HardcodearDocentes();
+            this.HardcodearNoDocentes();
             this.HardocodearAulas();
 
-           
+
             if (!(alumnos is null) || responsables is null || docentes is null || aulas is null)
             {
                 if (MessageBox.Show("¿Vamos a hacer unas pruebas ahora?", "Hardcodeos de prueba cargados", MessageBoxButtons.YesNo, MessageBoxIcon.Exclamation) == DialogResult.Yes)
@@ -265,7 +292,7 @@ namespace ProyectoJardin
             frmAltaNoDocente.SetParaPersonal();
 
             frmAltaNoDocente.ShowDialog();
-            if(frmAltaNoDocente.DialogResult==DialogResult.OK)
+            if (frmAltaNoDocente.DialogResult == DialogResult.OK)
             {
                 personal = frmAltaNoDocente.ListaPersonal;
             }
@@ -335,13 +362,13 @@ namespace ProyectoJardin
         {
             MessageBox.Show("Despues de revisar,\nDoble click para cerrar la lista");
             lstBoxPrincipal.Visible = true;
-            
+
 
             for (int i = 0; i < responsables.Count; i++)
             {
                 lstBoxPrincipal.Items.Add(responsables[i].ToString());
             }
-           // lstBoxPrincipal.SelectedItem
+            // lstBoxPrincipal.SelectedItem
 
 
         }
@@ -366,6 +393,76 @@ namespace ProyectoJardin
             }
         }
 
+        private void CalcularSueldosDocentes()
+        {
+            double sueldoTotalDocente=0;
+            double sueldoDeUne;
+
+            for (int i = 0; i < docentes.Count; i++)
+            {
+                sueldoDeUne = docentes[i].CalcularSalario();
+                sueldoTotalDocente += sueldoDeUne; 
+
+            }
+            
+            MessageBox.Show("Despues de revisar,\nDoble click para cerrar la lista");
+            lstBoxPrincipal.Visible = true;
+            lstBoxPrincipal.Items.Add("La suma de los Salarios Docentes fue de $" + sueldoTotalDocente.ToString());
+
+        }
+
+        private void CalcularSueldosNODocentes()
+        {
+            double sueldoTotalNODocente = 0;
+            double sueldoDeUne;
+
+            for (int i = 0; i < personal.Count; i++)
+            {
+                sueldoDeUne = personal[i].CalcularSalario();
+                sueldoTotalNODocente += sueldoDeUne;
+
+            }
+
+            MessageBox.Show("Despues de revisar,\nDoble click para cerrar la lista");
+            lstBoxPrincipal.Visible = true;
+            lstBoxPrincipal.Items.Add("La suma de los Salarios Administrativos fue de $ " + sueldoTotalNODocente.ToString());
+
+        }
+        /*
+         for (int i = 0; i < aulas.Count; i++)
+            {
+                lstBoxPrincipal.Items.Add($"Aula: {aulas[i].ColorSala}Docente: {aulas[i].Docente.Apellido}, {aulas[i].Docente.Nombre}Turno: {aulas[i].Turno}");
+
+                foreach (Alumno item in aulas[i].Alumnos)
+                {
+
+                    lstBoxPrincipal.Items.Add($"{item.Apellido},{item.Nombre}, {item.Legajo}");
+                }
+            }
+         **/
+        private void CalcularRecaudacionPorAula()
+        {
+            float recaudacionPorAula = 0;
+          
+
+            if (aulas.Count>0)
+            {
+                for (int i = 0; i < aulas.Count; i++)
+                {
+                    for (int j = 0; j < aulas[i].Alumnos.Count; j++)
+                    {
+                        recaudacionPorAula += aulas[i].Alumnos[j].PrecioCuota;
+                        
+                    }
+
+                   lstBoxPrincipal.Items.Add($"La recaudacion de la salita {aulas[i].ColorSala},{aulas[i].Docente},{aulas[i].Turno} fue de {recaudacionPorAula.ToString()}");
+                   recaudacionPorAula = 0;
+                }
+                MessageBox.Show("Despues de revisar,\nDoble click para cerrar la lista");
+                lstBoxPrincipal.Visible = true;
+            }
+
+        }
 
         private void recaudacionJardinToolStripMenuItem_Click(object sender, EventArgs e)
         {
@@ -383,14 +480,31 @@ namespace ProyectoJardin
 
             MessageBox.Show("Despues de revisar,\nDoble click para cerrar la lista");
             lstBoxPrincipal.Visible = true;
-          //  lstBoxPrincipal.Items.Clear();
+            //  lstBoxPrincipal.Items.Clear();
             lstBoxPrincipal.Items.Add("La recaudacion total fue de $" + recaudacion.ToString());
         }
 
         private void lstBoxPrincipal_MouseDoubleClick(object sender, MouseEventArgs e)
         {
+
             MessageBox.Show("Cerrando la lista");
+            lstBoxPrincipal.Items.Clear();
             lstBoxPrincipal.Visible = false;
+        }
+
+        private void sueldoDocenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.CalcularSueldosDocentes();
+        }
+
+        private void sueldoNoDocenteToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.CalcularSueldosNODocentes();
+        }
+
+        private void recaudacionPorAulaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            this.CalcularRecaudacionPorAula();
         }
     }
 }

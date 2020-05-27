@@ -60,7 +60,7 @@ namespace ProyectoJardin
             this.Close();
         }
 
-        private string DarAltaAlumnoResponsable()
+        public string DarAltaAlumnoResponsable()  ///la tuve que poner public para los test
         {
             if (Persona.ValidarCargaStringForms(txtNombre.Text)
                     && Persona.ValidarCargaStringForms(txtApellido.Text))
@@ -72,13 +72,13 @@ namespace ProyectoJardin
                     float cuota = float.Parse(txtCuota.Text);
                     alumno = new Alumno(nombre: txtNombre.Text, apellido: txtApellido.Text, dni: dni, femenino: rdbNiña.Checked, precioCuota: cuota);
 
-                    FrmAltaResponsables frmAltaResponsables = new FrmAltaResponsables(alumno);//tiene sobrecargas para asignar, aca una de responsables
+                    FrmAltaResponsables frmAltaResponsables = new FrmAltaResponsables(alumno);
                     frmAltaResponsables.ShowDialog();
 
                     if (frmAltaResponsables.DialogResult == DialogResult.OK)
                     {
                         btnAceptar.Text = "Finalizar";
-                        //alumno.Responsable = frmAltaResponsables.Responsable; //alumno me lelga null!!!!!1
+                      
                     }
                     else if (frmAltaResponsables.DialogResult == DialogResult.Cancel)
                     {

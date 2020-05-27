@@ -4,7 +4,7 @@ using EntidadesJardin;
 using ProyectoJardin;
 using System.Windows.Forms;
 
-namespace TestUnitario
+namespace TestUnitario  //tiene que servir para revisar las malas validaciones
 {
     [TestClass] //identifica la clase como metodo de test
     public class PrimerTestUnitario
@@ -15,8 +15,9 @@ namespace TestUnitario
 
         public void PersonaSinDni()
         {
-            Alumno a1 = new Alumno("pepe", "peposo", 0, false, 1200); 
 
+            Alumno a1 = new Alumno("pepe", "peposo", 0, false, 1200);
+            this.CompararIgualdad();
         }
 
         [TestMethod] 
@@ -27,15 +28,27 @@ namespace TestUnitario
         }
 
         [TestMethod] 
-        public void ValueTestCargaHardocodeoAlumnos()
+        public void TestCargaHardocodeoAlumnos()
         {
             FrmPrincipal menuPrin = new FrmPrincipal(); //crear una instancia del FRMprinc
             menuPrin.HardocodearAlumResponsables();   //hacerle metodo de instancia de ese FRM
-            Assert.IsTrue(menuPrin.Alumnos.Count == 54 && menuPrin.Responsable.Count==2);  //solo verifica que no sea null el obj
+            Assert.IsTrue(menuPrin.Alumnos.Count == 54 && menuPrin.Responsable.Count==2);  //ver si es cierto que alumno0s=54 y resp =2
+        }
+
+        [TestMethod]
+        public void TestCargaHardocodeoAulas()  //para el hardcodeo de aulas preciso hardcodear tb alumnos y docentes
+        {
+
+            FrmPrincipal menuPrin = new FrmPrincipal();
+            menuPrin.HardcodearDocentes();
+            menuPrin.HardocodearAlumResponsables();
+            menuPrin.HardocodearAulas();
+
+            Assert.IsTrue(menuPrin.Aulas.Count == 3);
         }
 
         [TestMethod] 
-        public void ValueTestCargaHardocodeoDocentes()
+        public void TestCargaHardocodeoDocentes()
         {
 
             FrmPrincipal menuPrin = new FrmPrincipal(); 
@@ -43,6 +56,18 @@ namespace TestUnitario
 
             Assert.IsTrue(menuPrin.Docentes.Count==5); 
         }
+
+        [TestMethod]
+        public void TestCargaHardocodeoNoDocentes()
+        {
+
+            FrmPrincipal menuPrin = new FrmPrincipal();
+            menuPrin.HardcodearNoDocentes();
+
+            Assert.IsTrue(menuPrin.Personal.Count == 10);
+        }
+
+
 
         [TestMethod]
         public void CompararIgualdad() //DUDAS SI ESTA BIEN
@@ -53,6 +78,28 @@ namespace TestUnitario
 
         }
 
+        /*
+         * tiene que haber test de alta alumno, alta responsable, que ande el mas y el ==
+         * hacer una verificacion con carga de alumno
+         */
+        [TestMethod]
+        public void ValidarCargaConResponsable()
+        {
+            FrmAltaAlumno altaAlumno = new FrmAltaAlumno();
+            altaAlumno.DarAltaAlumnoResponsable();   //yo tengo que probar las validaciones de lo que hay dentro de este metodo, van a ser muchas
+                                                 //aca hardcodear para comprobar esas cargas 
+            Assert.IsNull(altaAlumno.Responsable);  //hacer un alumno nuevo sin resp por ej
+        }
+
+        [TestMethod]
+        public void TestIgualacion()
+        {
+
+            FrmPrincipal menuPrin = new FrmPrincipal();
+            menuPrin.HardcodearNoDocentes();
+           
+            Assert.IsTrue(menuPrin.Personal.Count == 10);
+        }
 
 
 
