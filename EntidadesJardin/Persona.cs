@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -59,7 +61,7 @@ namespace EntidadesJardin
 
                 }
 
-                
+
 
             }
         }
@@ -103,17 +105,59 @@ namespace EntidadesJardin
         }
 
 
+        public static bool EsNumeroEntero(String num)
+        {
+            try
+            {
+                Int32.Parse(num);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
         public static bool ValidarCargaEnteroForms(string s, int max, int min)
         {
-                      
-            return int.TryParse(s, out int numeroARetornar) && numeroARetornar > min && numeroARetornar < max;
+            if (EsNumeroEntero(s))
+            {
+
+                return int.TryParse(s, out int numeroARetornar) && numeroARetornar > min && numeroARetornar < max;
+
+            }
+            else
+            {
+                return false;
+            }
+
         }
+
+
 
         public static bool ValidarCargaStringForms(string s)
         {
+            foreach (char ch in s)
+            {
 
+                if (!Char.IsLetter(ch) && ch != 32)
+                {
+                    return false;
+                }
+            }
            
-            return (!(string.IsNullOrEmpty(s)));
+            //for (int i = 0; i < s.Length; i++)
+            //{
+            //    if (EsNumeroEntero(s) || string.IsNullOrEmpty(s))
+
+            //    {
+            //        return false;
+            //    }
+
+            //}
+
+            return !(string.IsNullOrEmpty(s));
+
         }
 
         public void ValidarPersonaSinDNI(int value)   //un ejemplo para los test unit
@@ -126,7 +170,7 @@ namespace EntidadesJardin
 
         }
 
-        
+
 
     }
 }

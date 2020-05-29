@@ -14,7 +14,7 @@ namespace ProyectoJardin
     public partial class FrmAltaPersonal : Form
     {
 
-        private List<Administrativo> Listapersonal;
+        private List<Administrativo> listapersonal;
         private List<Docente> docentes;
         private Administrativo personal;
         private Docente docente;
@@ -43,8 +43,8 @@ namespace ProyectoJardin
 
         public List<Administrativo> ListaPersonal
         {
-            get { return Listapersonal; }
-            set { Listapersonal = value; }
+            get { return listapersonal; }
+            set { listapersonal = value; }
         }
         public List<Docente> Docentes
         {
@@ -53,71 +53,115 @@ namespace ProyectoJardin
         }
 
 
-        /*
-         *  if (Persona.ValidarCargaStringForms(txtBnombre.Text)
-                && Persona.ValidarCargaStringForms(txtBapellido.Text)
-                && Persona.ValidarCargaEnteroForms(txtBdni.Text, 40000000, 5000000))
-         */
+
+        private void DarAltaPersonal()
+        {
+            string resultado = this.ValidarCargasHechas();
+
+            switch (resultado)
+            {
+                case "Ok":
+                    if (CargarDatosDocente() || CargarDatosNODocente())
+
+                    {
+                        this.DialogResult = DialogResult.OK;
+                    }
+                    break;
+                case "Error Horario":
+                    MessageBox.Show("Error en el horario ingresado\n");
+
+                    break;
+                case "Error Dni":
+
+                    MessageBox.Show($"Error en el Dni:\n *{txtDni.Text}*");
+
+                    break;
+                case "Error Nombre":
+                    MessageBox.Show("Error en Nombre o Apellido\n");
+
+                    break;
+
+            }
+        }
 
 
-        private bool ValidarCargasHechas()
+        public string ValidarCargasHechas()
         {
             if (Persona.ValidarCargaStringForms(txtNombre.Text)
-                && Persona.ValidarCargaStringForms(txtApellido.Text)
-                && Persona.ValidarCargaEnteroForms(txtDni.Text, 40000000, 5000000) //entre 5 millones y 40 millones
-                && Int32.TryParse(txtbHoraEntrada.Text, out horarioEntrada)
-                && Int32.TryParse(txtbHoraSalida.Text, out horarioSalida))
+                && Persona.ValidarCargaStringForms(txtApellido.Text))
             {
-                return true;
+                if (Persona.ValidarCargaEnteroForms(txtDni.Text, 40000000, 5000000))
+                {
+                    if (numHoraEntrada.Value != 0 // horarioEntrada
+                          && numHoraSalida.Value != 0)
+                    {
+                       
+                        return "Ok";
+                    }
+                    return "Error Horario";
+                }
+                return "Error Dni";
 
+            }
+            return "Error Nombre";
+        }
+
+
+        protected bool CargarDatosNODocente()
+        {
+            ECargo cargo;
+            int dni = int.Parse(txtDni.Text); //tiene que ir adentro
+
+            if (btnAceptar.Text == "Cargar Personal"
+                  && Enum.TryParse<ECargo>(cmbCargos.SelectedItem.ToString(), out cargo))
+            {
+                DateTime entrada = new DateTime(01, 01, 01, int.Parse(numHoraEntrada.Value.ToString()), 00, 00); //si le saco despues de la coma los dos 00????
+                DateTime salida = new DateTime(01, 01, 01, int.Parse(numHoraSalida.Value.ToString()), 00, 00);
+                personal = new Administrativo(txtApellido.Text, txtNombre.Text, dni, rdbFemenino.Checked,personal.HoraEntrada,salida, cargo);
+                ListaPersonal.Add(personal);
+
+                return true;
             }
             return false;
         }
 
-        int horarioEntrada;
-        int horarioSalida;
 
+        protected bool CargarDatosDocente()  //llega mal el horario
+        {
+            double precioxHora;
+            int dni = int.Parse(txtDni.Text); 
+
+            if (btnAceptar.Text == "Cargar Docente")
+            {
+                if (Persona.ValidarCargaEnteroForms(txtbPrecioHora.Text, 1000, 100))
+                { 
+                    DateTime entrada = new DateTime(01, 01, 01, int.Parse(numHoraEntrada.Value.ToString()), 00, 00); //si le saco despues de la coma los dos 00????
+                    DateTime salida = new DateTime(01, 01, 01, int.Parse(numHoraSalida.Value.ToString()), 00, 00);
+                    precioxHora = double.Parse(txtbPrecioHora.Text);
+                    docente = new Docente(nombre: txtNombre.Text, apellido: txtApellido.Text, dni: dni, femenino: rdbFemenino.Checked, entrada, salida, precioxHora);
+                    Docentes.Add(docente);
+
+                    return true;
+                }
+                else
+                {
+                    MessageBox.Show("La hora debe valer entre 100 y 1000");
+                    txtbPrecioHora.Text = "";
+                }
+
+
+            }
+           
+
+            return false;
+        }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
         {
-            ECargo cargo;
-            int dni = int.Parse(txtDni.Text);
 
-
-            double precioxHora;
-
-            if (ValidarCargasHechas() && btnAceptar.Text == "Cargar Docente"
-                                       && double.TryParse(txtbPrecioHora.Text, out precioxHora))
-            {
-                DateTime entrada = new DateTime(01, 01, 01, horarioEntrada, 00, 00); //si le saco despues de la coma los dos 00????
-                DateTime salida = new DateTime(01, 01, 01, horarioSalida, 00, 00);
-
-                docente = new Docente(nombre: txtNombre.Text, apellido: txtApellido.Text, dni: dni, femenino: rdbFemenino.Checked, entrada, salida, precioxHora);
-                Docentes.Add(docente);  //sumo a la lista el docente, despues mando la lista completa por dialog
-                                        //solucionar falla en el alta docente
-                this.DialogResult = DialogResult.OK;
-
-
-            }
-
-            else if (ValidarCargasHechas() && btnAceptar.Text == "Cargar Personal"
-                   && Enum.TryParse<ECargo>(cmbCargos.SelectedItem.ToString(), out cargo))
-            {
-                DateTime entrada = new DateTime(01, 01, 01, horarioEntrada, 00, 00);
-                DateTime salida = new DateTime(01, 01, 01, horarioSalida, 00, 00);
-                personal = new Administrativo(txtApellido.Text, txtNombre.Text, dni, rdbFemenino.Checked, entrada, salida, cargo);
-                ListaPersonal.Add(personal);
-                MessageBox.Show("alta exitosa \n" + personal.Apellido);
-
-                this.DialogResult = DialogResult.OK;
-
-            }
+            this.DarAltaPersonal();
 
         }
-
-
-
-
 
         private void FrmAltaPersonal_Load_1(object sender, EventArgs e)
         {
@@ -127,8 +171,7 @@ namespace ProyectoJardin
 
         public void SetParaDocentes()
         {
-            txtbHoraEntrada.Visible = true;
-            txtbHoraSalida.Visible = true;
+           
             txtbPrecioHora.Visible = true;
             lblCargo.Visible = false;
             cmbCargos.Visible = false;
@@ -141,14 +184,10 @@ namespace ProyectoJardin
         public void SetParaPersonal()
         {
             cmbCargos.Enabled = true;
-            txtbHoraEntrada.Visible = true;
-            txtbHoraSalida.Visible = true;
             txtbPrecioHora.Visible = false;
             cmbCargos.Visible = false;
             cmbCargos.Visible = true;
             label1.Visible = false;
-
-
             btnAceptar.Text = "Cargar Personal";
         }
 
@@ -162,7 +201,19 @@ namespace ProyectoJardin
             }
         }
 
+        private void numHoraEntrada_ValueChanged(object sender, EventArgs e)
+        {
+            numHoraEntrada.Minimum = 7;
+            numHoraEntrada.Maximum = 17;
+        }
 
+        private void numHoraSalida_ValueChanged(object sender, EventArgs e)
+        {
+            numHoraSalida.Minimum = 7;
+            numHoraSalida.Maximum = 17;
+        }
+
+       
     }
 
 

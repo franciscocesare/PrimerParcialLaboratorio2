@@ -29,8 +29,6 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FrmAltaPersonal));
-            this.txtbHoraEntrada = new System.Windows.Forms.TextBox();
-            this.txtbHoraSalida = new System.Windows.Forms.TextBox();
             this.txtbPrecioHora = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.lblHoraEntrada = new System.Windows.Forms.Label();
@@ -48,23 +46,11 @@
             this.btnCancelar = new System.Windows.Forms.Button();
             this.lblCargo = new System.Windows.Forms.Label();
             this.cmbCargos = new System.Windows.Forms.ComboBox();
+            this.numHoraEntrada = new System.Windows.Forms.NumericUpDown();
+            this.numHoraSalida = new System.Windows.Forms.NumericUpDown();
+            ((System.ComponentModel.ISupportInitialize)(this.numHoraEntrada)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHoraSalida)).BeginInit();
             this.SuspendLayout();
-            // 
-            // txtbHoraEntrada
-            // 
-            this.txtbHoraEntrada.Location = new System.Drawing.Point(8, 241);
-            this.txtbHoraEntrada.Margin = new System.Windows.Forms.Padding(2);
-            this.txtbHoraEntrada.Name = "txtbHoraEntrada";
-            this.txtbHoraEntrada.Size = new System.Drawing.Size(82, 20);
-            this.txtbHoraEntrada.TabIndex = 6;
-            // 
-            // txtbHoraSalida
-            // 
-            this.txtbHoraSalida.Location = new System.Drawing.Point(106, 241);
-            this.txtbHoraSalida.Margin = new System.Windows.Forms.Padding(2);
-            this.txtbHoraSalida.Name = "txtbHoraSalida";
-            this.txtbHoraSalida.Size = new System.Drawing.Size(82, 20);
-            this.txtbHoraSalida.TabIndex = 7;
             // 
             // txtbPrecioHora
             // 
@@ -221,6 +207,22 @@
             this.cmbCargos.Size = new System.Drawing.Size(148, 21);
             this.cmbCargos.TabIndex = 17;
             // 
+            // numHoraEntrada
+            // 
+            this.numHoraEntrada.Location = new System.Drawing.Point(19, 248);
+            this.numHoraEntrada.Name = "numHoraEntrada";
+            this.numHoraEntrada.Size = new System.Drawing.Size(44, 20);
+            this.numHoraEntrada.TabIndex = 18;
+            this.numHoraEntrada.ValueChanged += new System.EventHandler(this.numHoraEntrada_ValueChanged);
+            // 
+            // numHoraSalida
+            // 
+            this.numHoraSalida.Location = new System.Drawing.Point(117, 248);
+            this.numHoraSalida.Name = "numHoraSalida";
+            this.numHoraSalida.Size = new System.Drawing.Size(41, 20);
+            this.numHoraSalida.TabIndex = 18;
+            this.numHoraSalida.ValueChanged += new System.EventHandler(this.numHoraSalida_ValueChanged);
+            // 
             // FrmAltaPersonal
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
@@ -228,6 +230,8 @@
             this.BackColor = System.Drawing.Color.Tomato;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
             this.ClientSize = new System.Drawing.Size(297, 384);
+            this.Controls.Add(this.numHoraSalida);
+            this.Controls.Add(this.numHoraEntrada);
             this.Controls.Add(this.cmbCargos);
             this.Controls.Add(this.btnCancelar);
             this.Controls.Add(this.btnAceptar);
@@ -245,8 +249,6 @@
             this.Controls.Add(this.lblHoraEgreso);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.txtbPrecioHora);
-            this.Controls.Add(this.txtbHoraSalida);
-            this.Controls.Add(this.txtbHoraEntrada);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.Fixed3D;
             this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.Margin = new System.Windows.Forms.Padding(2);
@@ -255,15 +257,14 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Altas Personal";
             this.Load += new System.EventHandler(this.FrmAltaPersonal_Load_1);
+            ((System.ComponentModel.ISupportInitialize)(this.numHoraEntrada)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.numHoraSalida)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
         }
 
         #endregion
-
-        private System.Windows.Forms.TextBox txtbHoraEntrada;
-        private System.Windows.Forms.TextBox txtbHoraSalida;
         private System.Windows.Forms.TextBox txtbPrecioHora;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label lblHoraEntrada;
@@ -281,5 +282,7 @@
         private System.Windows.Forms.Button btnCancelar;
         private System.Windows.Forms.Label lblCargo;
         private System.Windows.Forms.ComboBox cmbCargos;
+        private System.Windows.Forms.NumericUpDown numHoraEntrada;
+        private System.Windows.Forms.NumericUpDown numHoraSalida;
     }
 }

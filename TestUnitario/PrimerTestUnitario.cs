@@ -74,7 +74,7 @@ namespace TestUnitario  //tiene que servir para revisar las malas validaciones
         {
             FrmPrincipal menuPrin = new FrmPrincipal(); //  ESTO ES EL ARANGE?? crear una instancia del FRMprin
             menuPrin.HardocodearAlumResponsables(); //ESTO ES ACT??  hacerle metodo de instancia de ese FRM
-            Assert.IsTrue(!(menuPrin.Alumnos[0] == menuPrin.Alumnos[1]));  //tb puede ser isFalse
+            Assert.IsFalse(menuPrin.Alumnos[0] == menuPrin.Alumnos[1]);  //tb puede ser isFalse
 
         }
 
@@ -86,9 +86,13 @@ namespace TestUnitario  //tiene que servir para revisar las malas validaciones
         public void ValidarCargaConResponsable()
         {
             FrmAltaAlumno altaAlumno = new FrmAltaAlumno();
-            altaAlumno.DarAltaAlumnoResponsable();   //yo tengo que probar las validaciones de lo que hay dentro de este metodo, van a ser muchas
-                                                 //aca hardcodear para comprobar esas cargas 
-            Assert.IsNull(altaAlumno.Responsable);  //hacer un alumno nuevo sin resp por ej
+           
+            if(altaAlumno.ValidarCargasHechas()=="Ok");   //yo tengo que probar las validaciones de lo que hay dentro de este metodo, van a ser muchas
+
+            //aca hardcodear para comprobar esas cargas 
+            {
+                Assert.IsNull(altaAlumno.Alumno);
+            }  //hacer un alumno nuevo sin resp por ej
         }
 
         [TestMethod]

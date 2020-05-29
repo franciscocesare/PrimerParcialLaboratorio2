@@ -311,7 +311,7 @@ namespace ProyectoJardin
             if (frmAlumno.DialogResult == DialogResult.OK)
             {
                 frmAlumno.Alumno.Legajo = legajo++;
-                this.alumnos.Add(frmAlumno.Alumno);
+                this.alumnos.Add(frmAlumno.Alumno);   /////////REVISAR TODO EL RECORRIDO DEL ALTA
                 this.responsables.Add(frmAlumno.Alumno.Responsable);
 
             }

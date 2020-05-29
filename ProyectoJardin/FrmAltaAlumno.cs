@@ -60,57 +60,45 @@ namespace ProyectoJardin
             this.Close();
         }
 
-        public string DarAltaAlumnoResponsable()  ///la tuve que poner public para los test
+        private void btnAceptar_Click_1(object sender, EventArgs e)
+        {
+            this.DarAltaAlumnoResponsable();
+        }
+
+        public string ValidarCargasHechas()
         {
             if (Persona.ValidarCargaStringForms(txtNombre.Text)
-                    && Persona.ValidarCargaStringForms(txtApellido.Text))
+                && Persona.ValidarCargaStringForms(txtApellido.Text))
             {
-
-                if (Persona.ValidarCargaEnteroForms(txtDni.Text, 50000000, 40000000)) //para niños extranjeros deberia validar otr rango Dni
+                if (Persona.ValidarCargaEnteroForms(txtDni.Text, 50000000, 40000000) || Persona.ValidarCargaEnteroForms(txtDni.Text, 99000000, 90000000)) //pa
                 {
-                    int dni = int.Parse(txtDni.Text);
-                    float cuota = float.Parse(txtCuota.Text);
-                    alumno = new Alumno(nombre: txtNombre.Text, apellido: txtApellido.Text, dni: dni, femenino: rdbNiña.Checked, precioCuota: cuota);
-
-                    FrmAltaResponsables frmAltaResponsables = new FrmAltaResponsables(alumno);
-                    frmAltaResponsables.ShowDialog();
-
-                    if (frmAltaResponsables.DialogResult == DialogResult.OK)
+                    if (Persona.ValidarCargaEnteroForms(txtCuota.Text, 3000, 500))
                     {
-                        btnAceptar.Text = "Finalizar";
-                      
-                    }
-                    else if (frmAltaResponsables.DialogResult == DialogResult.Cancel)
-                    {
-                        MessageBox.Show("se canceló con exito");
-                    }
-                }
-                else
-                {
-                    return "Error Dni"; 
-                }
 
-                this.DialogResult = DialogResult.OK;
-                return "";
+                        return "Ok";
+                    }
+                    return "Error Cuota";
+                }
+                return "Error Dni";
             }
-
             return "Error Nombre";
         }
 
-        private void btnAceptar_Click_1(object sender, EventArgs e)
+
+        public void DarAltaAlumnoResponsable()  ///la tuve que poner public para los test
         {
-            string resultado = this.DarAltaAlumnoResponsable(); //si llega vacio es que estuvo el alta
-
-            switch (resultado)
+            switch (ValidarCargasHechas())
             {
-                case "":
+                case "Ok":
 
-                    MessageBox.Show("Alta exitosa de Alumno y Responsable");
+                    alumno = new Alumno(nombre: txtNombre.Text, apellido: txtApellido.Text, dni: int.Parse(txtDni.Text), femenino: rdbNiña.Checked, precioCuota: float.Parse(txtCuota.Text));
+                    CompletarAltaResponsable();
+                   // this.DialogResult = DialogResult.OK;
                     break;
 
                 case "Error Dni":
 
-                    MessageBox.Show($"Este numero no es Valido: \n *{txtDni.Text}*");
+                    MessageBox.Show($"Este dato no es Valido como DNI: \n *{txtDni.Text}*");
                     txtDni.Text = "";
                     break;
 
@@ -118,7 +106,36 @@ namespace ProyectoJardin
 
                     MessageBox.Show("Revise los datos del Nombre y Apellido");
                     break;
+
+                case "Error Cuota":
+
+                    MessageBox.Show("Revise datos de la Cuota, entre $500 y $3000");
+                    break;
+            }
+
+
+
+
+        }
+
+
+        public void CompletarAltaResponsable()
+        {
+            FrmAltaResponsables frmAltaResponsables = new FrmAltaResponsables(alumno);
+            frmAltaResponsables.ShowDialog();
+
+            if (frmAltaResponsables.DialogResult == DialogResult.OK)
+            {
+                this.DialogResult = DialogResult.OK;
+//                btnAceptar.Text = "Finalizar";
+
+            }
+            else if (frmAltaResponsables.DialogResult == DialogResult.Cancel)
+            {
+                MessageBox.Show("se canceló con exito");
             }
         }
+
+       
     }
 }
